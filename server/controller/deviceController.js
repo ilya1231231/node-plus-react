@@ -1,3 +1,5 @@
+
+
 class DeviceController {
     
     async create(req, res) {
