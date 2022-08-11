@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap"
 import { Link } from "react-router-dom" 
-import { SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE } from "../utils/consts";
+import { SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE } from "../../utils/consts";
 
 const NavBar = () => {
     return(
