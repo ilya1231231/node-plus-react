@@ -3,11 +3,11 @@ import { userReducer } from "./userReducer"
 import { composeWithDevTools } from "redux-devtools-extension"
 import thunk from "redux-thunk"
 import { applyMiddleware } from "redux"
-import { typeDeviceReducer } from "./typeDeviceReducer"
+import { typeReducer } from "./typeReducer"
 
 const rootReducer = combineReducers({
     userReducer: userReducer,
-    typeDeviceReducer: typeDeviceReducer
+    typeReducer: typeReducer,
 })
 
 //middleware позволяет внутри сторонних функций использовать dispatch

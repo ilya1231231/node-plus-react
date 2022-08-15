@@ -13,13 +13,10 @@
     с переносом блоков. Если перенос разрешён, то возможно задать направление, в котором выводятся блоки. */
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    min-width: 100%;
     padding: 5% 5%;
     border: 1px solid gray;
     border-radius: 8px;
-    margin: 0 3%;
     background-color: lightgray;
-}
-
-.authInput:last-child {
-    margin-top: 5%;
 }

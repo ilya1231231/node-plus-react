@@ -4,7 +4,7 @@ const defaultState =
         {id: 2, name: 'Телефоны'}
     ]
 
-export const typeDeviceReducer = (state = defaultState, action) => {
+export const typeReducer = (state = defaultState, action) => {
     switch (action.type) {
         default:
             return state
