@@ -1,6 +1,6 @@
 import React from "react"
 import { Container, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from 'react-redux';
+import BrandBar from "../components/UI/BrandBar";
 import TypeBar from "../components/UI/TypeBar";
 
 const Shop = () => {
@@ -12,6 +12,7 @@ const Shop = () => {
                     <TypeBar></TypeBar>
                 </Col>
                 <Col md={9}>
+                    <BrandBar></BrandBar>
                 </Col>
             </Row>
         </Container>
