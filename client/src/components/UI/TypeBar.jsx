@@ -10,11 +10,11 @@ const TypeBar = () => {
 		dispatch({type: "SELECT_TYPE", payload: type})
 	}
     return(
-        <ListGroup>
+        <ListGroup className="mt-3">
             {types.map(type => (
                 <ListGroup.Item 
                     style={{cursor: 'pointer'}}
-                    active={type.id === selectedType.id}
+                    variant={type.id === selectedType.id ? 'secondary' : 'light'}
                     key={type.id}
                     onClick={() => selectType(type)}>
                     {type.name}
