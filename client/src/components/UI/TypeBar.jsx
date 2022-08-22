@@ -10,7 +10,7 @@ const TypeBar = () => {
 		dispatch({type: "SELECT_TYPE", payload: type})
 	}
     return(
-        <ListGroup className="mt-3">
+        <ListGroup>
             {types.map(type => (
                 <ListGroup.Item 
                     style={{cursor: 'pointer'}}

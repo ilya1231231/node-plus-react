@@ -31,3 +31,8 @@
 .typeBrands {
     border: 3px solid red
 }
+
+.brandCard {
+    margin-left: 5px;
+    margin-bottom: 5px;
+}

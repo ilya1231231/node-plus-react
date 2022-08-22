@@ -1,25 +1,28 @@
 import React from "react";
 import { Col, Card, Image } from "react-bootstrap";
 import star from '../../assets/star.png';
+import {useNavigate} from 'react-router-dom'
+import { DEVICE_ROUTE } from "../../utils/consts";
             
 const DeviceItem = ({device}) => {
+    const navigate = useNavigate()
     return (
-        <Col md={3}>
+        <Col md={3} onClick={() => {navigate(DEVICE_ROUTE + '/' + device.id)}}>
             <Card 
-                style={{cursor: "pointer", width: "150"}}
-                className="align-items-center"
-                >
-                
+                style={{cursor: "pointer", width: "120"}}>
                 <Image 
-                    width={150} 
-                    height={150} 
+                    width={120}
+                    height={120}
                     src="https://shop.lenovo.ru/upload/resize_cache/content_webp/47aab170-8c93-11eb-80e3-005056963b6e/1.webp"/>
-                <div className="d-flex align-items-center">
-                    <div>Lenovo ...</div>
-                    <div>
+                <div className="d-flex justify-content-between align-items-center mt-1">
+                    <div className="text-secondary">Lenovo ...</div>
+                    <div className="d-flex align-items-center">
                         <div>{device.rating ?? '5'}</div>
-                        <Image src={star}/>
+                        <Image width={15} height={15} src={star}/>
                     </div>
+                </div>
+                <div>
+                    {device.name}
                 </div>
             </Card>
         </Col>

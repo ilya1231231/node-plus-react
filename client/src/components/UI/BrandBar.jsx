@@ -11,19 +11,19 @@ const BrandBar = () => {
     }
     
     return(
-        <Row className='d-flex'>
+        <Row className='d-flex flex-wrap'>
             {brands.map(brand => 
                 <Card 
-                    className='m-3 align-items-center border border-3'
+                    className="align-items-center brandCard"
                     key={brand.id}
                     border={(selectedBrand.id === brand.id) ? 'dark' : 'secondary'}
                     cursor="pointer" 
-                    style={{ width: '18rem' }}
-                    onClick={() => selectBrand(brand)}>
-                <Card.Img variant="top" src="https://mobile-review.com/articles/2021/image/armchair-analytics-243/1.jpg" />
-                <Card.Body>
-                  <Card.Title>{brand.name}</Card.Title>
-                </Card.Body>
+                    style={{ width: '8rem' }}
+                    onClick={() => selectBrand(brand)}
+                >
+                    <Card.Body>
+                        <Card.Title>{brand.name}</Card.Title>
+                    </Card.Body>
               </Card>
             )}
         </Row>
