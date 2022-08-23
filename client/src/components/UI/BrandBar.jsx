@@ -11,7 +11,7 @@ const BrandBar = () => {
     }
     
     return(
-        <Row className='d-flex flex-wrap'>
+        <Row className='d-flex'>
             {brands.map(brand => 
                 <Card 
                     className="align-items-center brandCard"
