@@ -8,7 +8,7 @@ const Shop = () => {
 
     return(
         <Container> 
-            <Row className>
+            <Row>
                 <Col md={3}>
                     <TypeBar></TypeBar>
                 </Col>

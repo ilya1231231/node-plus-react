@@ -12,7 +12,7 @@ const AppRouter = () => {
     const isAuth = false
     return(
         <Routes>
-            <Route exact path={DEVICE_ROUTE} element={<Device/>}/>
+            <Route exact path={DEVICE_ROUTE + '/:id'} element={<Device/>}/>
             <Route exact path={REGISTRATION_ROUTE} element={<Auth/>}/>
             <Route exact path={SHOP_ROUTE} element={<Shop/>}/>
             <Route exact path={LOGIN_ROUTE} element={<Auth/>}/>

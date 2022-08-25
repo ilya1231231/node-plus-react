@@ -14,8 +14,7 @@
     background-color: lightgray;
 }
 .navbar__links {
-    display:flex;
-    flex-direction: row-reverse;
+ 
 }
 
 .navbar__links button {

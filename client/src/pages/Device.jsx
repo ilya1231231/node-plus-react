@@ -45,18 +45,20 @@ const Device = () => {
                     </div>
                 </Col>
                 <Col md={4} xs={12}>
-                    <Card 
-                        className="d-flex flex-column justify-content-around align-items-center"
-                        style={{width: 300, height: 300, border: '3px solid light'}}
-                        >
-                        <h3
-                            style={{fontSize: 30}}
-                            >От: {device.price} рублей</h3>
-                        <Button
-                            variant={"outline-dark"}
-                            >Добавить в корзину
-                        </Button>
-                    </Card>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <div 
+                            className="d-flex flex-column justify-content-around align-items-center"
+                            style={{width: 300, height: 300, border: '3px solid lightgray', borderRadius: '5px'}}
+                            >
+                            <h3
+                                style={{fontSize: 30}}
+                                >От: {device.price} рублей</h3>
+                            <Button
+                                variant={"outline-dark"}
+                                >Добавить в корзину
+                            </Button>
+                        </div>
+                    </div>
                 </Col>
             </div>
             <Row className="p-3">
