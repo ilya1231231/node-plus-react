@@ -13,7 +13,7 @@ const AuthInput = () => {
             <h3>Войти</h3>
             <input className={classes.authInput} placeholder="Введите логин"/>
             <input className={classes.authInput} placeholder="Введите пароль"/>
-            <Button className="mt-3" onClick={() => {makeAuth()}}>Войти</Button>
+            <Button className="mt-3 w-50" variant={"outline-dark"} onClick={() => {makeAuth()}}>Войти</Button>
         </div>
     )
 }

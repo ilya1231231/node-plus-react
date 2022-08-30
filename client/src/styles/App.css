@@ -40,3 +40,7 @@
     text-decoration: none;
     color: white
 }
+
+.img_unauth {
+    transform: scaleX(-1)
+}
