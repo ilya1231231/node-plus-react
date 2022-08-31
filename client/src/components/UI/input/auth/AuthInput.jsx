@@ -1,7 +1,7 @@
 import React from "react";
 import classes from '../Input.module.css'
 import { Button } from "react-bootstrap";
-import { useSelector, useDispatch} from "react-redux";
+import { useDispatch} from "react-redux";
 
 const AuthInput = () => {
     const dispatch = useDispatch()

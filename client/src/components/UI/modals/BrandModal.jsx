@@ -1,35 +1,33 @@
-import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Form } from 'react-bootstrap';
 
-function BrandModal(show, onHide) {
-  const [show, setShow] = useState(show);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+function BrandModal({show, onHide}) {
+    return (
+        <Modal 
+            show={show} 
+            onHide={onHide}
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <Form.Control
+                        placeholder={'Введите название бренда'}
+                    />
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="outline-danger" onClick={onHide}>
+                    Закрыть
+                </Button>
+                <Button variant="outline-success" onClick={onHide}>
+                    Сохранить
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    );
 }
 
-render(<Example />);
+export default BrandModal

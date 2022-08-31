@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -11,13 +11,19 @@ function TypeModal({show, onHide}) {
             <Modal.Header closeButton>
                 <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>
+                <Form>
+                    <Form.Control
+                        placeholder={'Введите название типа продукта'}
+                    />
+                </Form>
+            </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                Close
+                <Button variant="outline-danger" onClick={onHide}>
+                Закрыть
                 </Button>
-                <Button variant="primary" onClick={onHide}>
-                Save Changes
+                <Button variant="outline-success" onClick={onHide}>
+                Сохранить
                 </Button>
             </Modal.Footer>
         </Modal>
