@@ -9,9 +9,13 @@ function DeviceModal({show, onHide}) {
 	const brands = useSelector(state => state.brandReducer.brands)
 	const [info, setInfo] = useState([])
 	const addInfo = () => {
-		console.log(info)
 		setInfo([...info, {title: '', description: '', number: Date.now()}])
 	}
+
+	const removeInfo = (number) => {
+		setInfo(info.filter(i => i.number !== number))
+	}
+
     return (
         <Modal 
             show={show} 
@@ -66,7 +70,7 @@ function DeviceModal({show, onHide}) {
 					Добавить новое устройство
 				</Button>
 				{info.map((i) => 
-					<Row>
+					<Row className='mt-3' key={i.number}>
 						<Col md={4}>
 							<Form.Control
 								placeholder="Введите название"
@@ -77,7 +81,11 @@ function DeviceModal({show, onHide}) {
 								placeholder="Введите название"
 							/>
 						</Col>
-						<Col md={4}>
+						<Col 
+							md={4} 
+							className="d-flex flex-end"
+							onClick={() => {removeInfo(i.number)}}
+							>
 							<Button variant="danger">
 								Удалить
 							</Button>

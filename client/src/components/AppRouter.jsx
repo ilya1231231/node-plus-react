@@ -1,5 +1,5 @@
 import React from "react"
-import {Routes, Route, Redirect} from "react-router-dom"
+import {Routes, Route, Redirect, useLocation} from "react-router-dom"
 import { ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE} from "../utils/consts"
 import Basket from "../pages/Basket"
 import Device from "../pages/Device"
