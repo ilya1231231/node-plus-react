@@ -4,14 +4,21 @@ import { Button } from "react-bootstrap";
 import { useDispatch} from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../../../../utils/consts";
+import { registration, login } from "../../../../http/userApi";
 
 const AuthInput = () => {
     const dispatch = useDispatch()
     const makeAuth = () => {
         dispatch({type: 'MAKE_AUTH', payload: true})
     }
+    //useLoaction() - содержит данные о странице (URL)
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
+
+    const loginOrRegister = async () => {
+        const response = isLogin ? await login() : await registration()
+        console.log(response)
+    }
     return(
         <div className={classes.inputGeneral}>
             <h3>{isLogin ? "Авторизация" : "Регистрация"}</h3>

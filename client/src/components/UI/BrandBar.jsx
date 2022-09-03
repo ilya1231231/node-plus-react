@@ -9,24 +9,12 @@ const BrandBar = () => {
     const selectBrand = (brand) => {
         dispatch({type: 'SELECT_BRAND', payload: brand})
     }
-    
     return(
-        <Row className='d-flex'>
+        <div className="d-flex">
             {brands.map(brand => 
-                <Card 
-                    className="align-items-center brandCard"
-                    key={brand.id}
-                    border={(selectedBrand.id === brand.id) ? 'dark' : 'secondary'}
-                    cursor="pointer" 
-                    style={{ width: '8rem' }}
-                    onClick={() => selectBrand(brand)}
-                >
-                    <Card.Body>
-                        <Card.Title>{brand.name}</Card.Title>
-                    </Card.Body>
-              </Card>
+                <div key={brand.id}className="p-3">{brand.name}</div>
             )}
-        </Row>
+        </div>
     )
 }
 
