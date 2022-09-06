@@ -5,7 +5,7 @@ import { SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE, ADMIN_ROUTE } from "../../utils/c
 import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
-    const isAuth = useSelector(state => state.userReducer.isAuth)
+    const isAuth = useSelector(state => state.authReducer.isAuth)
     const dispatch = useDispatch()
     const logout = () => {
       dispatch({type: 'MAKE_LOGOUT', payload: false})
