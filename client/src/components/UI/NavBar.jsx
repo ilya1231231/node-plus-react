@@ -9,6 +9,7 @@ const NavBar = () => {
     const dispatch = useDispatch()
     const logout = () => {
       dispatch({type: 'MAKE_LOGOUT', payload: false})
+      dispatch({type: 'SET_USER', payload: null})
     }
     
     return(
