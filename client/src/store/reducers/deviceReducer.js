@@ -1,10 +1,5 @@
 const defaultState = {
-    devices : [
-        {id: 1, name: 'Iphone'},
-        {id: 2, name: 'Samsung Galaxy'},
-        {id: 3, name: 'Ipad'},
-        {id: 4, name: 'IdeaPad Gaming 3'},
-    ],
+    devices : [],
     selectedDevice: {}
 }
 
@@ -12,6 +7,8 @@ export const deviceReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SELECT_DEVICE":
             return {...state, selectedDevice : action.payload}
+        case "SET_DEVICES":
+            return {...state, devices : action.payload}
         default:
             return state
     }
