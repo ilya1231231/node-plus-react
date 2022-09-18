@@ -28,6 +28,7 @@ class UserController {
             const basket = await Basket.create({userId: user.id})
             //первым параметром передаем объект(Юзера), второй- секретный ключ, третий- опции(Время жизни токена)
             const jwtToken = generateJWT(user.id, email, user.role)
+            console.log(jwtToken)
             return res.json({jwtToken})
         } catch (e) {
             console.log(e)

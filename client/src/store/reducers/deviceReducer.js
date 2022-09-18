@@ -1,5 +1,5 @@
 const defaultState = {
-    devices : [],
+    devices : [{id: 1, rating: 5, name: 'ewfwefwefwe'}],
     selectedDevice: {}
 }
 

@@ -1,11 +1,11 @@
 import axios from "axios"
 
 const $host = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'
 })
 
 const $authHost = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'
 })
 
 //Interceprion - Перехватчик

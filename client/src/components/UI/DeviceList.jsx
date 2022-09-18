@@ -5,14 +5,18 @@ import { Row } from "react-bootstrap";
 
 const DeviceList = () => {
     const devices = useSelector(state => state.deviceReducer.devices)
+    console.log(devices)
     return (
         <Row className="d-flex">
-            {devices.map(device => 
-                <DeviceItem
-                    key={device.id}
-                    device={device}
-                    />
-            )}
+            {devices 
+                ? devices.map(device => 
+                        <DeviceItem
+                            key={device.id}
+                            device={device}
+                            />
+                        )
+                : ''
+            }
         </Row>
     )
 }
