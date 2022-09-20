@@ -13,7 +13,7 @@ const DeviceItem = ({device}) => {
                 <Image 
                     width={120}
                     height={120}
-                    src="https://shop.lenovo.ru/upload/resize_cache/content_webp/47aab170-8c93-11eb-80e3-005056963b6e/1.webp"/>
+                    src={process.env.REACT_APP_API_URL + device.img}/>
                 <div className="d-flex justify-content-between align-items-center mt-1">
                     <div className="text-secondary">Lenovo ...</div>
                     <div className="d-flex align-items-center">

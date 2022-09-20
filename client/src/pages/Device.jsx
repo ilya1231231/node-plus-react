@@ -1,17 +1,19 @@
 import React from "react"
+import { useEffect, useState } from "react";
 import {Col, Image, Row, Card, Button, Container} from 'react-bootstrap';
 import bigStar from '../assets/bigStar.png';
 import CarouselBox from "../components/UI/CarouselBox";
+import { useParams } from "react-router-dom";
+import { fetchOneDevice } from "../http/deviceApi";
 
 const Device = () => {
-    const device = 
-        {
-            id: 2, 
-            name: 'Samsung Galaxy', 
-            img: 'https://cdn.svyaznoy.ru/upload/iblock/a05/samsung_pd_sm_g991_bzvgser_900x1200_1.jpg/resize/483x483/hq/',
-            rating: 3,
-            price: 50000
-        };
+    const [device, setDevice] = useState({info: []})
+    //параметры из ссылки
+    const {id} = useParams()
+    useEffect(() => {
+        fetchOneDevice(id).then(data => setDevice(data))
+    }, [])
+    console.log(device)
     const descriptions = [
         {id: 1, title: 'Оперативная память', description: '6гб'},
         {id: 2, title: 'Вес', description: '200гр'},
