@@ -5,7 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import { createType } from '../../../http/deviceApi';
 
 function TypeModal({show, onHide}) {
-    const [value, setValue] = useState()
+    const [value, setValue] = useState('')
+    //TODO сделать функцию удаления типов
     const addType = () => {
         createType({name:value}).then(data => {
             setValue('')

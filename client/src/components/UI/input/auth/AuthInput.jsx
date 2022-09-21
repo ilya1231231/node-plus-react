@@ -47,11 +47,13 @@ const AuthInput = () => {
                 <input 
                     className={classes.authInput} 
                     placeholder="Введите логин..."
+                    autoComplete="current-username"
                     value={email}
                     onChange={(e) => {setEmail(e.target.value)}}
                     />
                 <input 
                     className={classes.authInput}
+                    autoComplete="current-password"
                     placeholder="Введите пароль..."
                     value={password}
                     onChange={(e) => {setPassword(e.target.value)}}

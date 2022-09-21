@@ -1,6 +1,6 @@
 import React from "react";
-import { Navbar, Container, Nav, Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom" 
+import { Navbar, Container, Nav } from "react-bootstrap"
+import { useNavigate } from "react-router-dom" 
 import { SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE, ADMIN_ROUTE } from "../../utils/consts";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,45 +11,33 @@ const NavBar = () => {
       dispatch({type: 'MAKE_LOGOUT', payload: false})
       dispatch({type: 'SET_USER', payload: null})
     }
-    
+    const navigate = useNavigate()
     return(
-      // Сделать верстку адаптивной
         <Navbar bg="dark" variant="dark" fixed="top">
             <Container>
-                <Navbar.Brand href="shop">IShop</Navbar.Brand>
-                <Nav className="align-items-center">
-                    <Nav.Link>
-                        <Link to={SHOP_ROUTE}>Devices</Link>
-                    </Nav.Link>
-                <Nav.Link>
-                    <Link to={ABOUT_ROUTE}>About</Link>
-                </Nav.Link>
-                {isAuth 
+                <Navbar.Brand onClick={() =>navigate(SHOP_ROUTE)}>IShop</Navbar.Brand>
+                <Nav>
+                    <Nav.Link onClick={() =>navigate(SHOP_ROUTE)}>Devices</Nav.Link>
+                    <Nav.Link onClick={() =>navigate(ABOUT_ROUTE)}>About</Nav.Link>
+                {
+                isAuth 
                     ? 
-                    <div className="d-flex align-items-center">
-                        <div>
-                            <Nav.Link>
-                                <Link to={ADMIN_ROUTE}>
-                                    <div>
-                                      Админка
-                                    </div>
-                                </Link>
-                            </Nav.Link>
-                        </div>
-                        <div>
-                            <img 
-                              onClick={() => logout()}
-                              style={{marginLeft: "6px", borderRadius: "5px"}} 
-                              className="img_unauth"
-                              width="35px" 
-                              height="35px"
-                              src="https://png.pngtree.com/png-vector/20190417/ourlarge/pngtree-vector-logout-icon-png-image_947079.jpg"></img>
-                        </div>
-                    </div>
-                    : 
-                        <Nav.Link>
-                            <Link to={LOGIN_ROUTE}>Auth</Link>
+                    <>
+                        <Nav.Link onClick={() =>navigate(ADMIN_ROUTE)}>
+                            Админка
                         </Nav.Link>
+                        <Nav.Link onClick={() => logout()}>
+                            <img 
+                                alt=""
+                                style={{marginLeft: "3px", borderRadius: "5px"}} 
+                                className="img_unauth"
+                                width="24px" 
+                                height="24px"
+                                src="https://png.pngtree.com/png-vector/20190417/ourlarge/pngtree-vector-logout-icon-png-image_947079.jpg"
+                            />
+                        </Nav.Link>
+                    </>
+                    : <Nav.Link onClick={() =>navigate(LOGIN_ROUTE)}>Auth</Nav.Link>
                 }
                 </Nav>
             </Container>
