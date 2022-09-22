@@ -10,6 +10,7 @@ function TypeModal({show, onHide}) {
     const addType = () => {
         createType({name:value}).then(data => {
             setValue('')
+            onHide()
         })
     }
     return (
@@ -18,7 +19,7 @@ function TypeModal({show, onHide}) {
             onHide={onHide}
         >
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Добавьте тип продукта</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>

@@ -1,12 +1,25 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Dropdown, Form, Row } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fetchBrands, fetchTypes } from '../../../http/deviceApi';
 
 function DeviceModal({show, onHide}) {
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+        fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+        fetchBrands().then(data => dispatch({type: 'SET_BRANDS', payload: data}))
+    }, [dispatch])
+
 	const types = useSelector(state => state.typeReducer.types)
 	const brands = useSelector(state => state.brandReducer.brands)
+	const [name, setName] = useState('')
+	const [price, setPrice] = useState(0)
+	const [file, setFile] = useState(null)
+	const [brand, setBrand] = useState('')
+	const [type, setType] = useState('')
 	const [info, setInfo] = useState([])
 	const addInfo = () => {
 		setInfo([...info, {title: '', description: '', number: Date.now()}])
@@ -16,44 +29,76 @@ function DeviceModal({show, onHide}) {
 		setInfo(info.filter(i => i.number !== number))
 	}
 
+	const selectFile = (e) => {
+		//файл сохраняется в виде массива
+		setFile(e.target.files[0])
+	}
+
+    const selectType = (type) => {
+		dispatch({type: "SELECT_TYPE", payload: type})
+	}
+	const selectBrand = (brand) => {
+		dispatch({type: "SELECT_BRAND", payload: brand})
+	}
+	const selectedType =  useSelector(state => state.typeReducer.selectedType)
+	const selectedBrand =  useSelector(state => state.brandReducer.selectedBrand)
+
     return (
         <Modal 
             show={show} 
             onHide={onHide}
+			size="lg"
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Header 
+				closeButton>
+                <Modal.Title className="ms-auto">Добавить девайс</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-				<Dropdown>
-					<Dropdown.Toggle>
-						Выберите тип
-					</Dropdown.Toggle>
-					<Dropdown.Menu>
-						{types.map((type) => 
-							<Dropdown.Item key={type.id}>
-								{type.name}
-							</Dropdown.Item>
-						)}
-					</Dropdown.Menu>
-				</Dropdown>
-				<Dropdown className='mt-3'>
-					<Dropdown.Toggle>
-						Выберите бренд
-					</Dropdown.Toggle>
-					<Dropdown.Menu>
-						{brands.map((brand) => 
-							<Dropdown.Item key={brand.id}>
-								{brand.name}
-							</Dropdown.Item>
-						)}
-					</Dropdown.Menu>
-				</Dropdown>
+				<Row>
+					<Col md={6}>
+						<Dropdown>
+							<Dropdown.Toggle>
+								{selectedType.name || 'Выберите тип'}
+							</Dropdown.Toggle>
+							<Dropdown.Menu>
+								{types.map((type) => 
+									<Dropdown.Item 
+										onClick={() => {selectType(type)}}
+										key={type.id}
+										>
+										{type.name}
+									</Dropdown.Item>
+								)}
+							</Dropdown.Menu>
+						</Dropdown>
+					</Col>
+					<Col md={6}>
+						<Dropdown>
+							<Dropdown.Toggle>
+								{selectedBrand.name || 'Выберите бренд'}
+							</Dropdown.Toggle>
+							<Dropdown.Menu>
+								{brands.map((brand) => 
+									<Dropdown.Item 
+										onClick={() => {selectBrand(brand)}}
+										key={brand.id}
+										>
+										{brand.name}
+									</Dropdown.Item>
+								)}
+							</Dropdown.Menu>
+						</Dropdown>
+					</Col>
+				</Row>
 				<Form.Control 
+					value={name}
+					onChange={e => {setName(e.target.value)}}
 					className='mt-3'
 					placeholder='Введите название устройства'
 				/>
 				<Form.Control 
+					value={price}
+					onChange={e => {setPrice(Number(e.target.value))}}
 					className='mt-3'
 					type="number"
 					placeholder='Введите стоимость устройства'
@@ -61,6 +106,7 @@ function DeviceModal({show, onHide}) {
 				<Form.Control 
 					className='mt-3'
 					type='file'
+					onChange={e => {selectFile(e)}}
 					placeholder='Добавьте фото'
 				/>
 				<Button 
@@ -76,7 +122,7 @@ function DeviceModal({show, onHide}) {
 								placeholder="Введите название"
 							/>
 						</Col>
-						<Col md={4}>
+						<Col md={4} >
 							<Form.Control
 								placeholder="Введите название"
 							/>
