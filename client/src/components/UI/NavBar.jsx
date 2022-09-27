@@ -3,15 +3,18 @@ import { Navbar, Container, Nav } from "react-bootstrap"
 import { useNavigate } from "react-router-dom" 
 import { SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE, ADMIN_ROUTE } from "../../utils/consts";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../http/userApi";
 
 const NavBar = () => {
+    const navigate = useNavigate()
     const isAuth = useSelector(state => state.authReducer.isAuth)
     const dispatch = useDispatch()
-    const logout = () => {
-      dispatch({type: 'MAKE_LOGOUT', payload: false})
-      dispatch({type: 'SET_USER', payload: null})
+    const logoutClick = async() => {
+        await logout()
+        dispatch({type: 'MAKE_LOGOUT', payload: false})
+        dispatch({type: 'SET_USER', payload: null})
+        navigate(SHOP_ROUTE)
     }
-    const navigate = useNavigate()
     return(
         <Navbar bg="dark" variant="dark" fixed="top">
             <Container>
@@ -26,7 +29,7 @@ const NavBar = () => {
                         <Nav.Link onClick={() =>navigate(ADMIN_ROUTE)}>
                             Админка
                         </Nav.Link>
-                        <Nav.Link onClick={() => logout()}>
+                        <Nav.Link onClick={() => logoutClick()}>
                             <img 
                                 alt=""
                                 style={{marginLeft: "3px", borderRadius: "5px"}} 
