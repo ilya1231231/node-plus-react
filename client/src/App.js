@@ -13,8 +13,9 @@ function App() {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		check().then(() => {
+		check().then((data) => {
 			dispatch({type: 'MAKE_AUTH', payload: true})
+			dispatch({type: 'SET_USER', payload: data})
 		}).finally(() => setLoading(false))
   	},[])
 
@@ -22,10 +23,10 @@ function App() {
 		return <Spinner animation={'grow'}/>
 	}
 	return (
-			<BrowserRouter>
-				<NavBar/>
-				<AppRouter />
-			</BrowserRouter>
+		<BrowserRouter>
+			<NavBar/>
+			<AppRouter />
+		</BrowserRouter>
 	);
 }
 

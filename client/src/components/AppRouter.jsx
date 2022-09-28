@@ -9,7 +9,6 @@ import Admin from "../pages/Admin"
 import About from "../pages/About"
 import { useDispatch, useSelector } from "react-redux"
 const AppRouter = () => {
-    const dispatch = useDispatch()
 	const isAuth = useSelector(state => state.authReducer.state)
     return(
         <Routes>
@@ -19,7 +18,9 @@ const AppRouter = () => {
             <Route exact path={LOGIN_ROUTE} element={<Auth/>}/>
             <Route exact path={BASKET_ROUTE} element={<Basket/>}/>
             <Route exact path={ABOUT_ROUTE} element={<About/>}/>
-            {isAuth ?? <Route exact path={ADMIN_ROUTE} element={<Admin/>}/> }
+            {isAuth 
+                ??
+                <Route exact path={ADMIN_ROUTE} element={<Admin/>}/>}
             <Route path="*" element={<Navigate replace to={SHOP_ROUTE} />} />
         </Routes>
     )

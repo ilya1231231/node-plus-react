@@ -1,10 +1,5 @@
 const defaultState = {
-    types : [
-        {id: 1, name: 'Холодильники'},
-        {id: 2, name: 'Смартфоны'},
-        {id: 3, name: 'Ноутбуки'},
-        {id: 4, name: 'Бытовая техника'},
-    ],
+    types : [],
     selectedType : {}
 }
 

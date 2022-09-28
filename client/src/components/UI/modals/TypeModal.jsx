@@ -1,18 +1,20 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { createType } from '../../../http/deviceApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { createType, fetchTypes } from '../../../http/deviceApi';
 
 function TypeModal({show, onHide}) {
     const [value, setValue] = useState('')
     //TODO сделать функцию удаления типов
     const addType = () => {
-        createType({name:value}).then(data => {
+        createType({name:value}).then(() => {
             setValue('')
             onHide()
         })
     }
+    const editTypes = useSelector(state => state.typeReducer.types)
     return (
         <Modal 
             show={show} 
@@ -22,6 +24,18 @@ function TypeModal({show, onHide}) {
                 <Modal.Title>Добавьте тип продукта</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Row className="m-2">
+                    {editTypes.map((type) => 
+                        <div className="d-flex justify-content-between col-6 mt-1">
+                            <div>
+                                {type.name}
+                            </div>
+                            <Button variant="danger" size="sm">
+                                Удалить
+                            </Button>
+                        </div>
+                    )}
+                </Row>
                 <Form>
                     <Form.Control
                         value={value}

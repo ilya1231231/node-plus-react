@@ -6,13 +6,8 @@ import { useState, useEffect } from 'react';
 import { fetchBrands, fetchTypes } from '../../../http/deviceApi';
 
 function DeviceModal({show, onHide}) {
+
 	const dispatch = useDispatch()
-
-	useEffect(() => {
-        fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
-        fetchBrands().then(data => dispatch({type: 'SET_BRANDS', payload: data}))
-    }, [dispatch])
-
 	const types = useSelector(state => state.typeReducer.types)
 	const brands = useSelector(state => state.brandReducer.brands)
 	const [name, setName] = useState('')
