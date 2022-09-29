@@ -1,17 +1,26 @@
 import { useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { createType, fetchTypes } from '../../../http/deviceApi';
+import { createType, fetchTypes, deleteType } from '../../../http/deviceApi';
 
 function TypeModal({show, onHide}) {
+    const dispatch = useDispatch()
     const [value, setValue] = useState('')
+    const [message, setMessage] = useState('')
     //TODO сделать функцию удаления типов
     const addType = () => {
         createType({name:value}).then(() => {
             setValue('')
-            onHide()
+            setMessage(`Тип "${value}" успешно добавлен`)
+            fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+        })
+    }
+    const dropType = (type) => {
+        deleteType({type}).then(() => {
+            fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+        setMessage(`Тип "${type.name}" успешно удален`)
         })
     }
     const editTypes = useSelector(state => state.typeReducer.types)
@@ -24,16 +33,21 @@ function TypeModal({show, onHide}) {
                 <Modal.Title>Добавьте тип продукта</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {message 
+                    ? <div className='text-center border'>{message}</div>
+                    : ''
+                }
                 <Row className="m-2">
                     {editTypes.map((type) => 
-                        <div className="d-flex justify-content-between col-6 mt-1">
+                        <Container key={type.id} className="d-flex justify-content-between col-6 mt-1">
                             <div>
                                 {type.name}
                             </div>
-                            <Button variant="danger" size="sm">
-                                Удалить
-                            </Button>
-                        </div>
+                            <div 
+                                onClick={() => {dropType(type)}}
+                                className='fa fa-trash'style={{color: "red"}}>
+                            </div>
+                        </Container>
                     )}
                 </Row>
                 <Form>

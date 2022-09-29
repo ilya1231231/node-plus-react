@@ -12,7 +12,7 @@ const CarouselBox = ({props}) => {
             alt={props.name}
           />
           <Carousel.Caption
-            border='3px sold red'
+            border='3px solid red'
             >
             <h3>{props.name}</h3>
           </Carousel.Caption>
