@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Container, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,12 +9,12 @@ function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
-    //TODO сделать функцию удаления типов
     const addType = () => {
+        // if (value !== '') {
         createType({name:value}).then(() => {
-            setValue('')
-            setMessage(`Тип "${value}" успешно добавлен`)
-            fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+                setValue('')
+                setMessage(`Тип "${value}" успешно добавлен`)
+                fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
         })
     }
     const dropType = (type) => {
@@ -45,7 +45,7 @@ function TypeModal({show, onHide}) {
                             </div>
                             <div 
                                 onClick={() => {dropType(type)}}
-                                className='fa fa-trash'style={{color: "red"}}>
+                                className='fa fa-trash' style={{color: "red"}}>
                             </div>
                         </Container>
                     )}

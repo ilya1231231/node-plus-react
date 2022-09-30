@@ -2,10 +2,10 @@
 const uuid = require('uuid')
 const path = require('path')
 const {Device, DeviceInfo} = require('../models/models')
-const ApiError = require('../error/ApiError') 
+const ApiError = require('../error/ApiError')
 
 class DeviceController {
-    
+
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info} = req.body
@@ -30,7 +30,7 @@ class DeviceController {
             }
             return res.json(device)
         } catch (e) {
-            next(ApiError.badRequest('Произошла ошибка' . e.message))
+            next(ApiError.badRequest('Произошла ошибка'.e.message))
         }
     }
 
@@ -59,7 +59,7 @@ class DeviceController {
         //Метод findAll и findAndCountAll странно работают, нельзя подставить limit
         //Идет как подзапрос.Поэтому пока сделал так
         devices = devices.slice(startIndex, endIndex)
-        return res.json({'count': devices.length,'rows': devices})
+        return res.json({'count': devices.length, 'rows': devices})
     }
 
     async getOne(req, res) {

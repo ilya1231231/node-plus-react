@@ -10,6 +10,7 @@ const generateJWT = (id, email, role) => {
         {expiresIn: '24h'}
     )
 }
+
 class UserController {
     //Нужно обернуть в транзакцию
     async registration(req, res, next) {
@@ -50,7 +51,7 @@ class UserController {
         return res.json({jwtToken})
     }
 
-    async check(req, res, next) {
+    async check(req, res) {
         const token = generateJWT(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }

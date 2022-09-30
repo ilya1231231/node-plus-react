@@ -1,6 +1,5 @@
 import React from "react";
-import { Row, Card } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const BrandBar = () => {
     const dispatch = useDispatch()
@@ -9,10 +8,10 @@ const BrandBar = () => {
     const selectBrand = (brand) => {
         dispatch({type: 'SELECT_BRAND', payload: brand})
     }
-    return(
+    return (
         <div className="d-flex">
-            {brands.map(brand => 
-                <div key={brand.id}className="p-3">{brand.name}</div>
+            {brands.map(brand =>
+                <div key={brand.id} className="p-3">{brand.name}</div>
             )}
         </div>
     )

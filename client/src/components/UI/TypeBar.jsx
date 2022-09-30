@@ -1,18 +1,18 @@
 import React from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const TypeBar = () => {
     const dispatch = useDispatch()
-    const types =  useSelector(state => state.typeReducer.types)
+    const types = useSelector(state => state.typeReducer.types)
     const selectedType = useSelector(state => state.typeReducer.selectedType)
     const selectType = (type) => {
-		dispatch({type: "SELECT_TYPE", payload: type})
-	}
-    return(
+        dispatch({type: "SELECT_TYPE", payload: type})
+    }
+    return (
         <ListGroup>
             {types.map(type => (
-                <ListGroup.Item 
+                <ListGroup.Item
                     style={{cursor: 'pointer'}}
                     variant={type.id === selectedType.id ? 'secondary' : 'light'}
                     key={type.id}
