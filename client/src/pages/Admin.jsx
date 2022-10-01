@@ -3,14 +3,15 @@ import TypeModal from "../components/UI/modals/TypeModal";
 import { Container, Button} from "react-bootstrap";
 import BrandModal from "../components/UI/modals/BrandModal";    
 import DeviceModal from "../components/UI/modals/DeviceModal";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { fetchBrands, fetchTypes } from "../http/deviceApi";
+import { fetchBrands } from "../http/deviceApi";
+import {getTypes} from "../store/actions/typeActions";
 const Admin = () => {
     const dispatch = useDispatch()
 
 	useEffect(() => {
-        fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+        getTypes(dispatch)
         fetchBrands().then(data => dispatch({type: 'SET_BRANDS', payload: data}))
     }, [dispatch])
 

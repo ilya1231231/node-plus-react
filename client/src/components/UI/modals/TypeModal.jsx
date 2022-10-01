@@ -3,24 +3,28 @@ import { Container, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { createType, fetchTypes, deleteType } from '../../../http/deviceApi';
+import { createType, deleteType } from '../../../http/deviceApi';
+import {getTypes} from "../../../store/actions/typeActions";
 
 function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
     const addType = () => {
-        // if (value !== '') {
-        createType({name:value}).then(() => {
-                setValue('')
-                setMessage(`Тип "${value}" успешно добавлен`)
-                fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
-        })
+        if (value !== '') {
+            createType({name:value}).then(() => {
+                    setValue('')
+                    setMessage(`Тип "${value}" успешно добавлен`)
+                    getTypes(dispatch)
+            })
+        } else {
+            setMessage('Название типа должно содержать символы')
+        }
     }
     const dropType = (type) => {
         deleteType({type}).then(() => {
-            fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
-        setMessage(`Тип "${type.name}" успешно удален`)
+            getTypes(dispatch)
+            setMessage(`Тип "${type.name}" успешно удален`)
         })
     }
     const editTypes = useSelector(state => state.typeReducer.types)

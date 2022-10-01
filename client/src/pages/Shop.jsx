@@ -5,13 +5,14 @@ import { useDispatch } from "react-redux";
 import BrandBar from "../components/UI/BrandBar";
 import DeviceList from "../components/UI/DeviceList";
 import TypeBar from "../components/UI/TypeBar";
-import { fetchTypes, fetchBrands, fetchDevices } from "../http/deviceApi";
+import { fetchBrands, fetchDevices } from "../http/deviceApi";
+import {getTypes} from "../store/actions/typeActions";
 
 const Shop = () => {
     const dispatch = useDispatch()
     //единожды фетчим все типы и кидаем в состояние
     useEffect(() => {
-        fetchTypes().then(data => dispatch({type: 'SET_TYPES', payload: data}))
+        getTypes(dispatch)
         fetchBrands().then(data => dispatch({type: 'SET_BRANDS', payload: data}))
         fetchDevices().then(data => dispatch({type: 'SET_DEVICES', payload: data}))
     }, [dispatch])
