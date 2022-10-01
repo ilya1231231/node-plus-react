@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import {SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE, ADMIN_ROUTE} from "../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../http/userApi";
+import actions from "../../store/actions/actions";
 
 const NavBar = () => {
     const navigate = useNavigate()
@@ -11,7 +12,7 @@ const NavBar = () => {
     const dispatch = useDispatch()
     const logoutClick = async () => {
         await logout()
-        dispatch({type: 'MAKE_LOGOUT', payload: false})
+        dispatch(actions.authActions.setLogout())
         dispatch({type: 'SET_USER', payload: null})
         navigate(SHOP_ROUTE)
     }

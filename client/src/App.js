@@ -5,8 +5,9 @@ import './styles/App.css'
 import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
 import { useEffect, useState } from "react";
 import { check } from "./http/userApi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Spinner } from "react-bootstrap";
+import actions from "./store/actions/actions";
 
 function App() {
 	const dispatch = useDispatch()
@@ -14,7 +15,7 @@ function App() {
 
 	useEffect(() => {
 		check().then((data) => {
-			dispatch({type: 'MAKE_AUTH', payload: true})
+			dispatch(actions.authActions.setAuth())
 			dispatch({type: 'SET_USER', payload: data})
 		}).finally(() => setLoading(false))
   	},[])

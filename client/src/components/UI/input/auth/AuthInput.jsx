@@ -6,12 +6,13 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../../../../utils/consts";
 import {registration, login} from "../../../../http/userApi";
 import {useState} from "react";
+import actions from "../../../../store/actions/actions";
 
 const AuthInput = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const makeAuth = () => {
-        dispatch({type: 'MAKE_AUTH', payload: true})
+        dispatch(actions.authActions.setAuth())
     }
 
     const setUser = (user) => {

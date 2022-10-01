@@ -1,6 +1,20 @@
-import {fetchTypes} from "../../http/deviceApi";
-import {SET_TYPES} from "./actionTypes";
+import {SET_SELECT_TYPE, SET_TYPES} from "./actionTypes";
 
-export const getTypes = (dispatch) => {
-    fetchTypes().then(data => dispatch({type: SET_TYPES, payload: data}))
+const setTypes = (data) => {
+    return {
+        type: SET_TYPES,
+        payload: data
+    }
+}
+
+const setSelectedType = (type) => {
+    return {
+        type: SET_SELECT_TYPE,
+        payload: type
+    }
+}
+
+export default {
+    setTypes,
+    setSelectedType
 }

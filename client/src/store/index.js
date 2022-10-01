@@ -6,6 +6,5 @@ import { applyMiddleware } from "redux"
 
 
 const rootReducer = reducers
-
 //middleware позволяет внутри сторонних функций использовать dispatch
-export const store = configureStore({reducer : rootReducer}, composeWithDevTools(applyMiddleware(thunk)))
+export const store = configureStore({reducer: rootReducer}, composeWithDevTools(applyMiddleware(thunk)))

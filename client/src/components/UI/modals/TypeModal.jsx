@@ -3,8 +3,8 @@ import { Container, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { createType, deleteType } from '../../../http/deviceApi';
-import {getTypes} from "../../../store/actions/typeActions";
+import {createType, deleteType, fetchTypes} from '../../../http/deviceApi';
+import actions from "../../../store/actions/actions";
 
 function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ function TypeModal({show, onHide}) {
             createType({name:value}).then(() => {
                     setValue('')
                     setMessage(`Тип "${value}" успешно добавлен`)
-                    getTypes(dispatch)
+                    fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
             })
         } else {
             setMessage('Название типа должно содержать символы')
@@ -23,7 +23,7 @@ function TypeModal({show, onHide}) {
     }
     const dropType = (type) => {
         deleteType({type}).then(() => {
-            getTypes(dispatch)
+            fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
             setMessage(`Тип "${type.name}" успешно удален`)
         })
     }

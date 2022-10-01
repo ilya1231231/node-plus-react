@@ -1,3 +1,5 @@
+import {SELECT_BRAND, SET_BRANDS} from "../actions/actionTypes";
+
 const defaultState = {
     brands : [],
     selectedBrand: {}
@@ -5,9 +7,9 @@ const defaultState = {
 
 export const brandReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case "SELECT_BRAND":
+        case SELECT_BRAND:
             return {...state, selectedBrand : action.payload}
-        case "SET_BRANDS":
+        case SET_BRANDS:
             return {...state, brands : action.payload}
         default:
             return state

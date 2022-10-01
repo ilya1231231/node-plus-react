@@ -1,12 +1,14 @@
+import {SET_AUTH, SET_LOGOUT} from "../actions/actionTypes";
+
 const defaultState = {
     isAuth: false
 }
 
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case "MAKE_AUTH":
+        case SET_AUTH:
             return {...state, isAuth : true}
-        case "MAKE_LOGOUT": {
+        case SET_LOGOUT: {
             return {...state, isAuth : false}
         }
         default:

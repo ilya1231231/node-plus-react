@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {Col, Dropdown, Form, Row} from 'react-bootstrap';
 import {useState} from 'react';
+import actions from "../../../store/actions/actions";
 
 function DeviceModal({show, onHide}) {
 
@@ -29,7 +30,7 @@ function DeviceModal({show, onHide}) {
     }
 
     const selectType = (type) => {
-        dispatch({type: "SELECT_TYPE", payload: type})
+        dispatch(actions.typeActions.setSelectedType(type))
     }
     const selectBrand = (brand) => {
         dispatch({type: "SELECT_BRAND", payload: brand})
