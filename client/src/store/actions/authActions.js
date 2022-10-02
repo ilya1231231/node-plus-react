@@ -1,4 +1,4 @@
-import {SET_AUTH, SET_LOGOUT} from "./actionTypes";
+import {SET_AUTH, SET_LOGOUT, SET_USER} from "./actionTypes";
 
 export const setAuth = () => {
     return {
@@ -14,7 +14,15 @@ export const setLogout = () => {
     }
 }
 
+export const setUser = (data) => {
+    return {
+        type: SET_USER,
+        payload: data
+    }
+}
+
 export default {
     setAuth,
-    setLogout
+    setLogout,
+    setUser
 }

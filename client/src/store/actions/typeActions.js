@@ -1,4 +1,4 @@
-import {SET_SELECT_TYPE, SET_TYPES} from "./actionTypes";
+import {SET_SELECTED_TYPE, SET_TYPES} from "./actionTypes";
 
 const setTypes = (data) => {
     return {
@@ -9,7 +9,7 @@ const setTypes = (data) => {
 
 const setSelectedType = (type) => {
     return {
-        type: SET_SELECT_TYPE,
+        type: SET_SELECTED_TYPE,
         payload: type
     }
 }

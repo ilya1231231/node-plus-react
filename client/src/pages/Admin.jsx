@@ -11,7 +11,7 @@ const Admin = () => {
     const dispatch = useDispatch()
 	useEffect(() => {
         fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
-        fetchBrands().then(data => dispatch({type: 'SET_BRANDS', payload: data}))
+        fetchBrands().then(data => dispatch(actions.brandActions.setBrands(data)))
     }, [dispatch])
 
     const [showTypeModalVisible, setShowTypeModalVisible] = useState(false);

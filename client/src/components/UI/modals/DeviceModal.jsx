@@ -33,7 +33,7 @@ function DeviceModal({show, onHide}) {
         dispatch(actions.typeActions.setSelectedType(type))
     }
     const selectBrand = (brand) => {
-        dispatch({type: "SELECT_BRAND", payload: brand})
+        dispatch(actions.brandActions.setSelectedBrand(brand))
     }
     const selectedType = useSelector(state => state.typeReducer.selectedType)
     const selectedBrand = useSelector(state => state.brandReducer.selectedBrand)

@@ -13,7 +13,7 @@ const NavBar = () => {
     const logoutClick = async () => {
         await logout()
         dispatch(actions.authActions.setLogout())
-        dispatch({type: 'SET_USER', payload: null})
+        dispatch(actions.authActions.setUser(null))
         navigate(SHOP_ROUTE)
     }
     return (

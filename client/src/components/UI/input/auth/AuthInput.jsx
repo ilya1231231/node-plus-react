@@ -16,7 +16,7 @@ const AuthInput = () => {
     }
 
     const setUser = (user) => {
-        dispatch({type: 'SET_USER', payload: user})
+        dispatch(actions.authActions.setUser(user))
     }
 
     const [email, setEmail] = useState('')

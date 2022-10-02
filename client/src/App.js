@@ -16,7 +16,7 @@ function App() {
 	useEffect(() => {
 		check().then((data) => {
 			dispatch(actions.authActions.setAuth())
-			dispatch({type: 'SET_USER', payload: data})
+			dispatch(actions.authActions.setUser(data))
 		}).finally(() => setLoading(false))
   	},[])
 
