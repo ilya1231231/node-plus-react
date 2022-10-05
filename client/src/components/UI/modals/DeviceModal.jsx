@@ -4,24 +4,33 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Col, Dropdown, Form, Row} from 'react-bootstrap';
 import {useState} from 'react';
 import actions from "../../../store/actions/actions";
+import {createDevice} from "../../../http/deviceApi";
 
 function DeviceModal({show, onHide}) {
 
     const dispatch = useDispatch()
     const types = useSelector(state => state.typeReducer.types)
     const brands = useSelector(state => state.brandReducer.brands)
+    const selectedType = useSelector(state => state.typeReducer.selectedType)
+    const selectedBrand = useSelector(state => state.brandReducer.selectedBrand)
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [file, setFile] = useState(null)
     const [brand, setBrand] = useState('')
     const [type, setType] = useState('')
     const [info, setInfo] = useState([])
+
+    //Добавляем название характеристики и ее описание
     const addInfo = () => {
         setInfo([...info, {title: '', description: '', number: Date.now()}])
     }
 
     const removeInfo = (number) => {
-        setInfo(info.filter(i => i.number !== number))
+        setInfo(info.filter(infoRow => infoRow.number !== number))
+    }
+    //Прокидываем ключ изменяемого поля и его значение
+    const changeInfo = (key, value, number) => {
+        setInfo(info.map(infoRow => infoRow.number === number ? {...infoRow, [key]: value} : infoRow))
     }
 
     const selectFile = (e) => {
@@ -32,11 +41,22 @@ function DeviceModal({show, onHide}) {
     const selectType = (type) => {
         dispatch(actions.typeActions.setSelectedType(type))
     }
+
     const selectBrand = (brand) => {
         dispatch(actions.brandActions.setSelectedBrand(brand))
     }
-    const selectedType = useSelector(state => state.typeReducer.selectedType)
-    const selectedBrand = useSelector(state => state.brandReducer.selectedBrand)
+
+    const addDevice = () => {
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('price', `${price}`)
+        formData.append('img', file)
+        formData.append('brandId', selectedBrand.id)
+        formData.append('typeId', selectedType.id)
+        //массив передать невозможно, передаем JSON строку, которая парсится на бэке
+        formData.append('info', JSON.stringify(info))
+        createDevice(formData).then(data => onHide())
+    }
 
     return (
         <Modal
@@ -118,25 +138,29 @@ function DeviceModal({show, onHide}) {
                     className='mt-3'
                     onClick={addInfo}
                 >
-                    Добавить новое устройство
+                    Добавить новое свойство
                 </Button>
-                {info.map((i) =>
-                    <Row className='mt-3' key={i.number}>
+                {info.map((infoRow) =>
+                    <Row className='mt-3' key={infoRow.number}>
                         <Col md={4}>
                             <Form.Control
-                                placeholder="Введите название"
+                                value={infoRow.title ?? ''}
+                                onChange={(e) => changeInfo('title', e.target.value, infoRow.number)}
+                                placeholder="Введите название свойства"
                             />
                         </Col>
                         <Col md={4}>
                             <Form.Control
-                                placeholder="Введите название"
+                                value={infoRow.description ?? ''}
+                                onChange={(e) => changeInfo('description', e.target.value, infoRow.number)}
+                                placeholder="Введите описаные свойства"
                             />
                         </Col>
                         <Col
                             md={4}
                             className="d-flex flex-end"
                             onClick={() => {
-                                removeInfo(i.number)
+                                removeInfo(infoRow.number)
                             }}
                         >
                             <Button variant="danger">
@@ -150,7 +174,7 @@ function DeviceModal({show, onHide}) {
                 <Button variant="secondary" onClick={onHide}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={onHide}>
+                <Button variant="primary" onClick={addDevice}>
                     Save Changes
                 </Button>
             </Modal.Footer>

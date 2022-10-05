@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {createType, deleteType, fetchTypes} from '../../../http/deviceApi';
 import actions from "../../../store/actions/actions";
 
-function TypeModal({show, onHide}) {
+function TypeModal({setChangeTypes, show, onHide}) {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
@@ -16,6 +16,7 @@ function TypeModal({show, onHide}) {
                     setValue('')
                     setMessage(`Тип "${value}" успешно добавлен`)
                     fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
+                    setChangeTypes(true)
             })
         } else {
             setMessage('Название типа должно содержать символы')
@@ -29,7 +30,8 @@ function TypeModal({show, onHide}) {
     }
     const editTypes = useSelector(state => state.typeReducer.types)
     return (
-        <Modal 
+        <Modal
+            size="lg"
             show={show} 
             onHide={onHide}
         >
@@ -43,15 +45,15 @@ function TypeModal({show, onHide}) {
                 }
                 <Row className="m-2">
                     {editTypes.map((type) => 
-                        <Container key={type.id} className="d-flex justify-content-between col-6 mt-1">
-                            <div>
+                        <div key={type.id} className="d-flex justify-content-between col-6 mt-1">
+                            <div className="overflow-auto">
                                 {type.name}
                             </div>
                             <div 
                                 onClick={() => {dropType(type)}}
                                 className='fa fa-trash' style={{color: "red"}}>
                             </div>
-                        </Container>
+                        </div>
                     )}
                 </Row>
                 <Form>

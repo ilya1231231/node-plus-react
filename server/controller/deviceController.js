@@ -9,6 +9,7 @@ class DeviceController {
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info} = req.body
+            console.log(req.body)
             const {img} = req.files
             //генерация названия файла
             let fileName = uuid.v4() + ".jpg"
@@ -20,7 +21,8 @@ class DeviceController {
             if (info) {
                 //Если данные приходят с формы, то они приходят вместе с массивом, который нужно спарсить в json
                 info = JSON.parse(info)
-                info.array.forEach(element => {
+                console.log(info)
+                info.forEach(element => {
                     DeviceInfo.create({
                         title: element.title,
                         description: element.description,
@@ -30,7 +32,7 @@ class DeviceController {
             }
             return res.json(device)
         } catch (e) {
-            next(ApiError.badRequest('Произошла ошибка'.e.message))
+            next(ApiError.badRequest(`Произошла ошибка ${e.message}`))
         }
     }
 
