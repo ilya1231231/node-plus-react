@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Form, Row } from 'react-bootstrap';
+import {Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,8 +31,7 @@ function TypeModal({setChangeTypes, show, onHide}) {
     const editTypes = useSelector(state => state.typeReducer.types)
     return (
         <Modal
-            size="lg"
-            show={show} 
+            show={show}
             onHide={onHide}
         >
             <Modal.Header closeButton>
@@ -45,13 +44,13 @@ function TypeModal({setChangeTypes, show, onHide}) {
                 }
                 <Row className="m-2">
                     {editTypes.map((type) => 
-                        <div key={type.id} className="d-flex justify-content-between col-6 mt-1">
+                        <div key={type.id} className="d-flex justify-content-between col-12 mt-1">
                             <div className="overflow-auto">
                                 {type.name}
                             </div>
                             <div 
                                 onClick={() => {dropType(type)}}
-                                className='fa fa-trash' style={{color: "red"}}>
+                                className='fa fa-trash text-danger'>
                             </div>
                         </div>
                     )}

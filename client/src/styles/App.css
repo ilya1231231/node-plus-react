@@ -16,7 +16,7 @@
 
 .navbar__links button {
     margin-left: 5%;
-    padding: 0px 15px;
+    padding: 0 15px;
     border-radius: 7px;
 }
 
@@ -35,4 +35,8 @@
 
 .img_unauth {
     transform: scaleX(-1)
+}
+
+.preview_image {
+    width: 8rem
 }

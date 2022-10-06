@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
-import {Col, Dropdown, Form, Row} from 'react-bootstrap';
-import {useState} from 'react';
+import {Card, Col, Dropdown, Form, Row} from 'react-bootstrap';
+import {useState, useEffect} from 'react';
 import actions from "../../../store/actions/actions";
 import {createDevice} from "../../../http/deviceApi";
 
@@ -16,10 +16,29 @@ function DeviceModal({show, onHide}) {
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [file, setFile] = useState(null)
-    const [brand, setBrand] = useState('')
-    const [type, setType] = useState('')
     const [info, setInfo] = useState([])
+    const [fileDataURL, setFileDataURL] = useState(null);
 
+    useEffect(() => {
+        let fileReader, isCancel = false;
+        if (file) {
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setFileDataURL(result)
+                }
+            }
+            fileReader.readAsDataURL(file);
+        }
+        return () => {
+            isCancel = true;
+            if (fileReader && fileReader.readyState === 1) {
+                fileReader.abort();
+            }
+        }
+
+    }, [file]);
     //Добавляем название характеристики и ее описание
     const addInfo = () => {
         setInfo([...info, {title: '', description: '', number: Date.now()}])
@@ -37,7 +56,10 @@ function DeviceModal({show, onHide}) {
         //файл сохраняется в виде массива
         setFile(e.target.files[0])
     }
-
+    const removeImage = () => {
+        setFileDataURL(null)
+        setFile(null)
+    }
     const selectType = (type) => {
         dispatch(actions.typeActions.setSelectedType(type))
     }
@@ -55,7 +77,7 @@ function DeviceModal({show, onHide}) {
         formData.append('typeId', selectedType.id)
         //массив передать невозможно, передаем JSON строку, которая парсится на бэке
         formData.append('info', JSON.stringify(info))
-        createDevice(formData).then(data => onHide())
+        createDevice(formData).then(() => onHide())
     }
 
     return (
@@ -126,6 +148,16 @@ function DeviceModal({show, onHide}) {
                     type="number"
                     placeholder='Введите стоимость устройства'
                 />
+                {fileDataURL ?
+                    <Card className="mt-3 preview_image">
+                        <Card.Img variant="top" src={fileDataURL} />
+                        <small>{file.name}</small>
+                        <div
+                            onClick={removeImage}
+                            className='fa fa-trash text-danger'>
+                        </div>
+                    </Card>
+                    : null}
                 <Form.Control
                     className='mt-3'
                     type='file'
