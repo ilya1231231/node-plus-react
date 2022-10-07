@@ -32,6 +32,7 @@ export const createDevice = async (device) => {
 
 export const fetchDevices = async () => {
     const {data} = await $host.get('api/device')
+    console.log(data)
     return data
 }
 

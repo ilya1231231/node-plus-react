@@ -1,14 +1,15 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {useDispatch, useSelector} from 'react-redux';
-import {Card, Col, Dropdown, Form, Row} from 'react-bootstrap';
+import {useSelector} from 'react-redux';
+import {Col, Form, Row} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
-import actions from "../../../store/actions/actions";
 import {createDevice} from "../../../http/deviceApi";
+import SelectType from "../input/type/SelectType";
+import SelectBrand from "../input/brand/SelectBrand";
+import DevicePreview from "../input/device/DevicePreview";
+import InfoInput from "../input/device/InfoInput";
 
 function DeviceModal({show, onHide}) {
-
-    const dispatch = useDispatch()
     const types = useSelector(state => state.typeReducer.types)
     const brands = useSelector(state => state.brandReducer.brands)
     const selectedType = useSelector(state => state.typeReducer.selectedType)
@@ -24,7 +25,7 @@ function DeviceModal({show, onHide}) {
         if (file) {
             fileReader = new FileReader();
             fileReader.onload = (e) => {
-                const { result } = e.target;
+                const {result} = e.target;
                 if (result && !isCancel) {
                     setFileDataURL(result)
                 }
@@ -44,14 +45,6 @@ function DeviceModal({show, onHide}) {
         setInfo([...info, {title: '', description: '', number: Date.now()}])
     }
 
-    const removeInfo = (number) => {
-        setInfo(info.filter(infoRow => infoRow.number !== number))
-    }
-    //Прокидываем ключ изменяемого поля и его значение
-    const changeInfo = (key, value, number) => {
-        setInfo(info.map(infoRow => infoRow.number === number ? {...infoRow, [key]: value} : infoRow))
-    }
-
     const selectFile = (e) => {
         //файл сохраняется в виде массива
         setFile(e.target.files[0])
@@ -59,13 +52,6 @@ function DeviceModal({show, onHide}) {
     const removeImage = () => {
         setFileDataURL(null)
         setFile(null)
-    }
-    const selectType = (type) => {
-        dispatch(actions.typeActions.setSelectedType(type))
-    }
-
-    const selectBrand = (brand) => {
-        dispatch(actions.brandActions.setSelectedBrand(brand))
     }
 
     const addDevice = () => {
@@ -93,42 +79,10 @@ function DeviceModal({show, onHide}) {
             <Modal.Body>
                 <Row>
                     <Col md={6}>
-                        <Dropdown>
-                            <Dropdown.Toggle>
-                                {selectedType.name || 'Выберите тип'}
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {types.map((type) =>
-                                    <Dropdown.Item
-                                        onClick={() => {
-                                            selectType(type)
-                                        }}
-                                        key={type.id}
-                                    >
-                                        {type.name}
-                                    </Dropdown.Item>
-                                )}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <SelectType types={types}/>
                     </Col>
                     <Col md={6}>
-                        <Dropdown>
-                            <Dropdown.Toggle>
-                                {selectedBrand.name || 'Выберите бренд'}
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {brands.map((brand) =>
-                                    <Dropdown.Item
-                                        onClick={() => {
-                                            selectBrand(brand)
-                                        }}
-                                        key={brand.id}
-                                    >
-                                        {brand.name}
-                                    </Dropdown.Item>
-                                )}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <SelectBrand brands={brands}/>
                     </Col>
                 </Row>
                 <Form.Control
@@ -149,14 +103,7 @@ function DeviceModal({show, onHide}) {
                     placeholder='Введите стоимость устройства'
                 />
                 {fileDataURL ?
-                    <Card className="mt-3 preview_image">
-                        <Card.Img variant="top" src={fileDataURL} />
-                        <small>{file.name}</small>
-                        <div
-                            onClick={removeImage}
-                            className='fa fa-trash text-danger'>
-                        </div>
-                    </Card>
+                    <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
                     : null}
                 <Form.Control
                     className='mt-3'
@@ -172,35 +119,7 @@ function DeviceModal({show, onHide}) {
                 >
                     Добавить новое свойство
                 </Button>
-                {info.map((infoRow) =>
-                    <Row className='mt-3' key={infoRow.number}>
-                        <Col md={4}>
-                            <Form.Control
-                                value={infoRow.title ?? ''}
-                                onChange={(e) => changeInfo('title', e.target.value, infoRow.number)}
-                                placeholder="Введите название свойства"
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Form.Control
-                                value={infoRow.description ?? ''}
-                                onChange={(e) => changeInfo('description', e.target.value, infoRow.number)}
-                                placeholder="Введите описаные свойства"
-                            />
-                        </Col>
-                        <Col
-                            md={4}
-                            className="d-flex flex-end"
-                            onClick={() => {
-                                removeInfo(infoRow.number)
-                            }}
-                        >
-                            <Button variant="danger">
-                                Удалить
-                            </Button>
-                        </Col>
-                    </Row>
-                )}
+                <InfoInput info={info} setInfo={setInfo}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
