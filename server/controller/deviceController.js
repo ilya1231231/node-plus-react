@@ -1,7 +1,7 @@
 //генерирует неповторяемые ids
 const uuid = require('uuid')
 const path = require('path')
-const {Device, DeviceInfo} = require('../models/models')
+const {Device, DeviceInfo, Brand} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class DeviceController {
@@ -40,17 +40,27 @@ class DeviceController {
         //req.query получаем данные из строки запроса
         let {brandId, typeId, limit, page} = req.query
         page = page || 1
-        limit = limit || 9
+        limit = limit || 60
         //отступ(если перейдут сразу на вторую страницу)
         const startIndex = (page - 1) * limit
         const endIndex = page * limit
         let offset = page * limit - limit
         let devices;
         if (!brandId && !typeId) {
-            devices = await Device.findAll()
+            devices = await Device.findAll({
+                include: [
+                    {
+                        model: Brand,
+                    }
+                ]
+            })
         }
         if (!brandId && typeId) {
-            devices = await Device.findAll({where: {typeId}})
+            devices = await Device.findAll({
+                where: {
+                    typeId
+                }
+            })
         }
         if (brandId && !typeId) {
             devices = await Device.findAll({where: {brandId}})
@@ -67,6 +77,7 @@ class DeviceController {
     async getOne(req, res) {
         //параметр указан в роутере
         const {id} = req.params
+        console.log(id)
         const device = await Device.findOne(
             {
                 where: {id},

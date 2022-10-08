@@ -1,29 +1,29 @@
 import Carousel from 'react-bootstrap/Carousel'
 
-const CarouselBox = ({props}) => {
+const CarouselBox = ({device}) => {
 
     return (
         <Carousel>
             <Carousel.Item>
                 <img
                     className='d-block w-100'
-                    src="https://avatars.mds.yandex.net/get-mpic/6277643/img_id5167684583275161810.jpeg/orig"
-                    alt={props.name}
+                    src={process.env.REACT_APP_API_DEV_URL + '/' + device.img}
+                    alt={device.name}
                 />
                 <Carousel.Caption
                     border='3px solid red'
                 >
-                    <h3>{props.name}</h3>
+                    <h3>{device.name}</h3>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className='d-block w-100'
-                    src='https://items.s1.citilink.ru/1652708_v01_b.jpg'
-                    alt={props.name}
+                    src={process.env.REACT_APP_API_DEV_URL + '/' + device.img}
+                    alt={device.name}
                 />
                 <Carousel.Caption>
-                    <h3>{props.name}</h3>
+                    <h3>{device.name}</h3>
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>

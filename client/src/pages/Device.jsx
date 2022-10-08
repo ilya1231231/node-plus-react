@@ -1,6 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react";
-import {Col, Image, Row, Card, Button, Container} from 'react-bootstrap';
+import {Col, Row, Button, Container} from 'react-bootstrap';
 import bigStar from '../assets/bigStar.png';
 import CarouselBox from "../components/UI/CarouselBox";
 import { useParams } from "react-router-dom";
@@ -13,19 +13,18 @@ const Device = () => {
     useEffect(() => {
         fetchOneDevice(id).then(data => setDevice(data))
     }, [])
-    console.log(device)
-    const descriptions = [
-        {id: 1, title: 'Оперативная память', description: '6гб'},
-        {id: 2, title: 'Вес', description: '200гр'},
-        {id: 3, title: 'Экран', description: 'OLED'},
-        {id: 4, title: 'Камера', description: '20 Мегапикселей'},
-        {id: 5, title: 'Память', description: '124гб'},
-    ]
+    // const descriptions = [
+    //     {id: 1, title: 'Оперативная память', description: '6гб'},
+    //     {id: 2, title: 'Вес', description: '200гр'},
+    //     {id: 3, title: 'Экран', description: 'OLED'},
+    //     {id: 4, title: 'Камера', description: '20 Мегапикселей'},
+    //     {id: 5, title: 'Память', description: '124гб'},
+    // ]
     return(
         <Container>
             <div className="row d-flex align-items-center">
                 <Col md={4} xs={12} className="d-flex justify-content-center align-items-center p-3">
-                <CarouselBox props={device}/>
+                <CarouselBox device={device}/>
                 </Col>
                 <Col md={4} xs={12}>
                     <div className="d-flex flex-column justify-content-center align-items-center p-3">
@@ -65,7 +64,7 @@ const Device = () => {
             </div>
             <Row className="p-3">
                 <h1>Характеристики</h1>
-                {descriptions.map((info, index) => 
+                {device.info.map((info, index) =>
                     <Col key={info.id} md={12} mt-3 style={{background: index % 2 ? 'lightgray' : 'transparent'}}>
                         <h5>{info.title} : {info.description}</h5>
                     </Col>
