@@ -1,8 +1,13 @@
 const {Type} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {body, validationResult} = require('express-validator');
 
 class TypeController {
     async create(req, res, next) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(403).json({ errors: errors.array() });
+        }
         const {name} = req.body
         if (!name) {
             return next(ApiError.badRequest())
@@ -22,6 +27,16 @@ class TypeController {
             id: type.id
         }})
         return res.json(type)    
+    }
+
+    validate = (method) => {
+        switch (method) {
+            case 'createType': {
+                return [
+                    body('name', 'Неверное значение названия типа').isAlpha(),
+                ]
+            }
+        }
     }
 }
 

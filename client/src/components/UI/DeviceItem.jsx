@@ -19,7 +19,7 @@ const DeviceItem = ({device}) => {
                             style={{width: 100, height: 'auto'}}
                             src={process.env.REACT_APP_API_DEV_URL + '/' + device.img}/>
                     </div>
-                    <div className="d-flex justify-content-between align-items-center mt-1">
+                    <div className="d-flex justify-content-between align-items-center mt-3">
                         <div className="text-secondary">{device.brand.name}</div>
                         <div className="d-flex align-items-center">
                             <div>{device.rating ?? '5'}</div>

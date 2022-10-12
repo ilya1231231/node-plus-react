@@ -8,11 +8,13 @@ import { check } from "./http/userApi";
 import { useDispatch } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import actions from "./store/actions/actions";
+import {QueryClient} from "@tanstack/react-query";
+import {QueryClientProvider} from "@tanstack/react-query";
 
 function App() {
 	const dispatch = useDispatch()
 	const [loading, setLoading] = useState(true)
-
+	const queryClient = new QueryClient()
 	useEffect(() => {
 		check().then((data) => {
 			dispatch(actions.authActions.setAuth())
@@ -24,10 +26,12 @@ function App() {
 		return <Spinner animation={'grow'}/>
 	}
 	return (
-		<BrowserRouter>
-			<NavBar/>
-			<AppRouter />
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<NavBar/>
+				<AppRouter />
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 }
 

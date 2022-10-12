@@ -19,6 +19,7 @@ function DeviceModal({show, onHide}) {
     const [file, setFile] = useState(null)
     const [info, setInfo] = useState([])
     const [fileDataURL, setFileDataURL] = useState(null);
+    const [imageName, setImageName] = useState('')
 
     useEffect(() => {
         let fileReader, isCancel = false;
@@ -52,6 +53,7 @@ function DeviceModal({show, onHide}) {
     const removeImage = () => {
         setFileDataURL(null)
         setFile(null)
+        setImageName('')
     }
 
     const addDevice = () => {
@@ -102,14 +104,17 @@ function DeviceModal({show, onHide}) {
                     type="number"
                     placeholder='Введите стоимость устройства'
                 />
-                {fileDataURL ?
+                {fileDataURL && file ?
                     <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
                     : null}
                 <Form.Control
                     className='mt-3'
                     type='file'
+                    value={imageName}
                     onChange={e => {
+                        console.log(e.target.value)
                         selectFile(e)
+                        setImageName(e.target.value)
                     }}
                     placeholder='Добавьте фото'
                 />

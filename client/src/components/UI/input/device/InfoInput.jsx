@@ -10,19 +10,21 @@ const InfoInput = ({info, setInfo}) => {
     const changeInfo = (key, value, number) => {
         setInfo(info.map(infoRow => infoRow.number === number ? {...infoRow, [key]: value} : infoRow))
     }
-
     return(
         <div>
+            {info.length
+                ? <h3 className='text-center mt-2'>Свойства</h3>
+                : ''}
             {info.map((infoRow) =>
-                    <Row className='mt-3' key={infoRow.number}>
-                        <Col md={4}>
+                    <Row className='mt-3' key={infoRow.number} style={{border: '1px solid gray', borderRadius: 5}}>
+                        <Col md={4} className='mt-2'>
                             <Form.Control
                                 value={infoRow.title ?? ''}
                                 onChange={(e) => changeInfo('title', e.target.value, infoRow.number)}
                                 placeholder="Введите название свойства"
                             />
                         </Col>
-                        <Col md={4}>
+                        <Col md={4} className='mt-2'>
                             <Form.Control
                                 value={infoRow.description ?? ''}
                                 onChange={(e) => changeInfo('description', e.target.value, infoRow.number)}
@@ -31,12 +33,12 @@ const InfoInput = ({info, setInfo}) => {
                         </Col>
                         <Col
                             md={4}
-                            className="d-flex flex-end"
+                            className="d-flex mt-2"
                             onClick={() => {
                                 removeInfo(infoRow.number)
                             }}
                         >
-                            <Button variant="danger">
+                            <Button className='mb-2' variant="danger">
                                 Удалить
                             </Button>
                         </Col>
