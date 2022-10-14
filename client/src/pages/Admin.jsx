@@ -1,9 +1,9 @@
-import React, {useMemo} from "react"
+import React from "react"
 import TypeModal from "../components/UI/modals/TypeModal";
 import { Container, Button} from "react-bootstrap";
 import BrandModal from "../components/UI/modals/BrandModal";    
 import DeviceModal from "../components/UI/modals/DeviceModal";
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
 import {fetchBrands, fetchTypes} from "../http/deviceApi";
 import actions from "../store/actions/actions";

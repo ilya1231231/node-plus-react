@@ -10,6 +10,7 @@ import { Spinner } from "react-bootstrap";
 import actions from "./store/actions/actions";
 import {QueryClient} from "@tanstack/react-query";
 import {QueryClientProvider} from "@tanstack/react-query";
+import {Error} from "./components/UI/error/Error";
 
 function App() {
 	const dispatch = useDispatch()
@@ -29,7 +30,8 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<NavBar/>
-				<AppRouter />
+				<Error/>
+				<AppRouter/>
 			</BrowserRouter>
 		</QueryClientProvider>
 	);

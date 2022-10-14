@@ -1,7 +1,7 @@
 import {SET_SELECT_DEVICE, SET_DEVICES} from "../actions/actionTypes";
 
 const defaultState = {
-    devices : [{id: 1, rating: 5, name: 'ewfwefwefwe'}],
+    devices : [],
     selectedDevice: {}
 }
 

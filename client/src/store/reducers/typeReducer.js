@@ -1,5 +1,3 @@
-import {connect} from "react-redux";
-import Admin from "../../pages/Admin";
 import {SET_SELECTED_TYPE, SET_TYPES} from "../actions/actionTypes";
 
 const defaultState = {
@@ -17,15 +15,3 @@ export const typeReducer = (state = defaultState, action) => {
             return state
     }
 }
-//
-const mapStateToProps = state => ({
-    todos: state
-})
-//
-// const mapDispatchToProps = dispatch => ({
-//     todos: state
-// })
-
-export default connect(
-    mapStateToProps,
-)(Admin)
