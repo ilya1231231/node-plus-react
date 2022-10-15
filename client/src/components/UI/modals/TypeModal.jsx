@@ -5,20 +5,18 @@ import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import {createType, deleteType, fetchTypes} from '../../../http/deviceApi';
 import actions from "../../../store/actions/actions";
-import {isErrorNotOccurred} from "../../../helpers/apiErrorHelper";
+import {errorHandler} from "../../../helpers/apiErrorHelper";
 
 function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
     const addType = () => {
-        createType({name:value}).then((data) => {
-            if (isErrorNotOccurred(data, dispatch)) {
-                setValue('')
-                setMessage(`Тип "${value}" успешно добавлен`)
-                fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
-            }
-        })
+        createType({name:value}, dispatch).then(() => {
+            setValue('')
+            setMessage(`Тип "${value}" успешно добавлен`)
+            fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
+        }, (error) => errorHandler(error, dispatch))
     }
     const dropType = (type) => {
         deleteType({type}).then(() => {
