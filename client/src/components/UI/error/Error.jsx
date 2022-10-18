@@ -15,7 +15,7 @@ export const Error = () => {
                 variant='danger' style={{zIndex: 9999}}
                 onClose={() => closeAlert()} dismissible>
                 <Alert.Heading>Ошибка</Alert.Heading>
-                <p>{error.msg}</p>
+                <p>{error}</p>
             </Alert>
         )
     }

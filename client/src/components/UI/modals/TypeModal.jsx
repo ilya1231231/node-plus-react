@@ -22,7 +22,7 @@ function TypeModal({show, onHide}) {
         deleteType({type}).then(() => {
             fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
             setMessage(`Тип "${type.name}" успешно удален`)
-        })
+        }, (error) => errorHandler(error, dispatch))
     }
     const editTypes = useSelector(state => state.typeReducer.types)
     return (
