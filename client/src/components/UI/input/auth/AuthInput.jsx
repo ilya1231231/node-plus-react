@@ -7,6 +7,7 @@ import {REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../../../../utils/con
 import {registration, login} from "../../../../http/userApi";
 import {useState} from "react";
 import actions from "../../../../store/actions/actions";
+import {errorHandler} from "../../../../helpers/apiErrorHelper";
 
 const AuthInput = () => {
     const dispatch = useDispatch()
@@ -37,8 +38,8 @@ const AuthInput = () => {
             setUser(user)
             makeAuth()
             navigate(SHOP_ROUTE)
-        } catch (e) {
-            alert(e.response.data.message)
+        } catch (error) {
+            errorHandler(error, dispatch)
         }
     }
     return (

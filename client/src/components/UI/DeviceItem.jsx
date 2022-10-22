@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import {DEVICE_ROUTE} from "../../utils/consts";
 
 const DeviceItem = ({device}) => {
+    console.log(device)
     const navigate = useNavigate()
     return (
         <Col className="m-1 d-flex align-items-center justify-content-center" md={3} xs={12} onClick={() => {
@@ -20,7 +21,7 @@ const DeviceItem = ({device}) => {
                             src={process.env.REACT_APP_API_DEV_URL + '/' + device.img}/>
                     </div>
                     <div className="d-flex justify-content-between align-items-center mt-3">
-                        <div className="text-secondary">{device.brand.name}</div>
+                        <div className="text-secondary">{device.brand ? device.brand.name : ''}</div>
                         <div className="d-flex align-items-center">
                             <div>{device.rating ?? '5'}</div>
                             <Image width={15} height={15} src={star}/>

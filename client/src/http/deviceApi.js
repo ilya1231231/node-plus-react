@@ -24,8 +24,21 @@ export const fetchTypes = async () => {
 }
 
 export const createBrand = async (brand) => {
-    const {data} = await $authHost.post('api/brand', brand)
-    return data
+    try {
+        const {data} = await $authHost.post('api/brand', brand)
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const deleteBrand = async (brand) => {
+    try {
+        const {data} = await $authHost.post('api/brand/delete', brand)
+        return data
+    } catch (error) {
+        throw error
+    }
 }
 
 export const fetchBrands = async () => {
@@ -40,7 +53,6 @@ export const createDevice = async (device) => {
 
 export const fetchDevices = async () => {
     const {data} = await $host.get('api/device')
-    console.log(data)
     return data
 }
 

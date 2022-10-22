@@ -1,6 +1,6 @@
 const {body} = require("express-validator");
 
-class TypeValidator
+class BrandValidation
 {
     create = () => {
         return [
@@ -8,12 +8,6 @@ class TypeValidator
             body('name', 'Поле не может состоять полностью из цифр').not().isNumeric(),
         ]
     }
-
-    delete = () => {
-        return [
-            body('name', 'Неверный формат идентификатора').not().isNumeric(),
-        ]
-    }
 }
 
-module.exports = new TypeValidator();
+module.exports = new BrandValidation();
