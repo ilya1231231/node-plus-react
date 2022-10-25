@@ -9,7 +9,6 @@ class DeviceController {
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info} = req.body
-            console.log(req.body)
             const {img} = req.files
             //генерация названия файла
             let fileName = uuid.v4() + ".jpg"
@@ -21,7 +20,6 @@ class DeviceController {
             if (info) {
                 //Если данные приходят с формы, то они приходят вместе с массивом, который нужно спарсить в json
                 info = JSON.parse(info)
-                console.log(info)
                 info.forEach(element => {
                     DeviceInfo.create({
                         title: element.title,
@@ -77,7 +75,6 @@ class DeviceController {
     async getOne(req, res) {
         //параметр указан в роутере
         const {id} = req.params
-        console.log(id)
         const device = await Device.findOne(
             {
                 where: {id},

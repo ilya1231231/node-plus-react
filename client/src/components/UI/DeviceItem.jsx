@@ -5,7 +5,6 @@ import {useNavigate} from 'react-router-dom'
 import {DEVICE_ROUTE} from "../../utils/consts";
 
 const DeviceItem = ({device}) => {
-    console.log(device)
     const navigate = useNavigate()
     return (
         <Col className="m-1 d-flex align-items-center justify-content-center" md={3} xs={12} onClick={() => {

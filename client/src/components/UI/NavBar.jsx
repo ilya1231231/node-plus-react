@@ -5,6 +5,7 @@ import {SHOP_ROUTE, LOGIN_ROUTE, ABOUT_ROUTE, ADMIN_ROUTE} from "../../utils/con
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../http/userApi";
 import actions from "../../store/actions/actions";
+import logoutImg from "../../assets/logout.jpg"
 
 const NavBar = () => {
     const navigate = useNavigate()
@@ -37,7 +38,7 @@ const NavBar = () => {
                                         className="img_unauth"
                                         width="24px"
                                         height="24px"
-                                        src="https://png.pngtree.com/png-vector/20190417/ourlarge/pngtree-vector-logout-icon-png-image_947079.jpg"
+                                        src={logoutImg}
                                     />
                                 </Nav.Link>
                             </>

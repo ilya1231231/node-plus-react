@@ -4,6 +4,7 @@ import AppRouter from "./components/AppRouter";
 import './styles/App.css';
 import './styles/styles.css'
 import './styles/font-awesome-4.7.0/css/font-awesome.min.css'
+import './styles/bootstrap-5.0.2-dist/css/bootstrap.css'
 import {useEffect, useState} from "react";
 import {check} from "./http/userApi";
 import {useDispatch} from "react-redux";

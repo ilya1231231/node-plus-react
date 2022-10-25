@@ -20,6 +20,7 @@ export const deleteType = async (type) => {
 
 export const fetchTypes = async () => {
     const {data} = await $host.get('api/type')
+    console.log(data)
     return data
 }
 

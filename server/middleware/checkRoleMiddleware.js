@@ -14,7 +14,6 @@ module.exports = function (role) {
             //Декодируем jwt
             const decoded = jwt.verify(token, process.env.SECRET_KEY)
             //Сравниваем с ролью, которую мы передали в middleware в typeRouter(Например)
-            console.log(decoded)
             if (decoded.role !== role) {
                 res.status(403).json({message: 'Недостаточно прав'})
             }

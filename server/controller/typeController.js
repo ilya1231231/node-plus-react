@@ -1,4 +1,4 @@
-const {Type} = require('../models/models')
+const {Type, DeviceInfo, Device} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {validationResult} = require('express-validator');
 const {getErrorMsg} = require("../utils/arrayHelper");
@@ -19,7 +19,11 @@ class TypeController {
     }
 
     async getAll(req, res) {
-        const types = await Type.findAll()
+        const types = await Type.findAll(
+            {
+                include: [{model: Device, as: 'relatedDevices'}]
+            }
+        )
         return res.json(types)
     }
 

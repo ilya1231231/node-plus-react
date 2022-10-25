@@ -13,13 +13,6 @@ const Device = () => {
     useEffect(() => {
         fetchOneDevice(id).then(data => setDevice(data))
     }, [])
-    // const descriptions = [
-    //     {id: 1, title: 'Оперативная память', description: '6гб'},
-    //     {id: 2, title: 'Вес', description: '200гр'},
-    //     {id: 3, title: 'Экран', description: 'OLED'},
-    //     {id: 4, title: 'Камера', description: '20 Мегапикселей'},
-    //     {id: 5, title: 'Память', description: '124гб'},
-    // ]
     return(
         <Container>
             <div className="row d-flex align-items-center">

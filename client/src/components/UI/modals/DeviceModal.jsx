@@ -3,11 +3,12 @@ import Modal from 'react-bootstrap/Modal';
 import {useSelector} from 'react-redux';
 import {Col, Form, Row} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
-import {createDevice} from "../../../http/deviceApi";
+import {createDevice, fetchTypes} from "../../../http/deviceApi";
 import SelectType from "../input/type/SelectType";
 import SelectBrand from "../input/brand/SelectBrand";
 import DevicePreview from "../input/device/DevicePreview";
 import InfoInput from "../input/device/InfoInput";
+import actions from "../../../store/actions/actions";
 
 function DeviceModal({show, onHide}) {
     const types = useSelector(state => state.typeReducer.types)
@@ -112,7 +113,6 @@ function DeviceModal({show, onHide}) {
                     type='file'
                     value={imageName}
                     onChange={e => {
-                        console.log(e.target.value)
                         selectFile(e)
                         setImageName(e.target.value)
                     }}
