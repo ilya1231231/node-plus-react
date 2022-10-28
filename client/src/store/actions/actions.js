@@ -3,6 +3,7 @@ import authActions from "./authActions";
 import brandActions from "./brandActions";
 import deviceActions from "./deviceActions";
 import errorActions from "./errorActions";
+import successActions from "./successActions";
 
 const actions = {
     typeActions,
@@ -10,6 +11,7 @@ const actions = {
     brandActions,
     deviceActions,
     errorActions,
+    successActions,
 }
 
 export default actions

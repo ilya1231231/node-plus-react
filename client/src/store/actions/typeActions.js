@@ -1,9 +1,34 @@
-import {SET_SELECTED_TYPE, SET_TYPES} from "./actionTypes";
+import {SET_ERROR, SET_SELECTED_TYPE, SET_TYPES} from "./actionTypes";
+import {createType, fetchTypes} from "../../http/deviceApi";
+import actions from "./actions";
 
-const setTypes = (data) => {
-    return {
-        type: SET_TYPES,
-        payload: data
+const setTypes = (dispatch, getState) => {
+    try {
+        fetchTypes().then((data) => {
+            dispatch({
+                type: SET_TYPES,
+                payload: data
+            })
+        })
+    } catch (e) {
+        dispatch(actions.errorActions.setError(e))
+    }
+}
+
+const saveType = (name) => {
+    return async (dispatch, getState) => {
+        try {
+            await createType(name)
+            fetchTypes().then((data) => {
+                dispatch({
+                    type: SET_TYPES,
+                    payload: data
+                })
+            })
+            dispatch(actions.successActions.setSuccess(true))
+        } catch (e) {
+            dispatch(actions.errorActions.setError(e))
+        }
     }
 }
 
@@ -16,5 +41,6 @@ const setSelectedType = (type) => {
 
 export default {
     setTypes,
-    setSelectedType
+    setSelectedType,
+    saveType
 }

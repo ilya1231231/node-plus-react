@@ -10,7 +10,7 @@ import actions from "../store/actions/actions";
 const Admin = () => {
     const dispatch = useDispatch()
 	useEffect(() => {
-        fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
+        dispatch(actions.typeActions.setTypes)
         fetchBrands().then(data => dispatch(actions.brandActions.setBrands(data)))
     }, [dispatch])
 

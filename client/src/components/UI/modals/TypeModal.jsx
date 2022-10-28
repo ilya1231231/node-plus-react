@@ -12,17 +12,14 @@ function TypeModal({show, onHide}) {
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
     const addType = () => {
-        createType({name: value}, dispatch).then(() => {
-            setValue('')
-            setMessage(`Тип "${value}" успешно добавлен`)
-            fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
-        }, (error) => errorHandler(error, dispatch))
+        // todo нужно сделать модалку, которая будет выводить "Сохранено" или продумать другой вариант
+        dispatch(actions.typeActions.saveType({name: value}))
     }
     const dropType = (type) => {
         deleteType({type}).then(() => {
-            fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
+            dispatch(actions.typeActions.setTypes)
             setMessage(`Тип "${type.name}" успешно удален`)
-        }, (error) => errorHandler(error, dispatch))
+        })
     }
 
     //todo переделать под удобный тултип

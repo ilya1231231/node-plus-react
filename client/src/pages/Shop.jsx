@@ -12,7 +12,7 @@ const Shop = () => {
     const dispatch = useDispatch()
     //единожды фетчим все типы и кидаем в состояние
     useEffect(() => {
-        fetchTypes().then(data => dispatch(actions.typeActions.setTypes(data)))
+        dispatch(actions.typeActions.setTypes)
         fetchBrands().then(data => dispatch(actions.brandActions.setBrands(data)))
         fetchDevices().then(data => dispatch(actions.deviceActions.setDevices(data)))
     }, [dispatch])

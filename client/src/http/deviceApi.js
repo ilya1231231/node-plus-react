@@ -1,12 +1,8 @@
 import {$authHost, $host} from ".";
 
 export const createType = async (type) => {
-    try {
-        const {data} = await $authHost.post('api/type', type)
-        return data
-    } catch (error) {
-        throw error
-    }
+    const {data} = await $authHost.post('api/type', type)
+    return data
 }
 
 export const deleteType = async (type) => {
@@ -20,7 +16,6 @@ export const deleteType = async (type) => {
 
 export const fetchTypes = async () => {
     const {data} = await $host.get('api/type')
-    console.log(data)
     return data
 }
 

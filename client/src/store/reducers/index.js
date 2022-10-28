@@ -4,6 +4,7 @@ import { brandReducer } from "./brandReducer"
 import { deviceReducer } from "./deviceReducer"
 import { authReducer } from "./authReducer"
 import {errorReducer} from "./errorReducer";
+import {successReducer} from "./successReducer";
 
 export const reducers = combineReducers({
     authReducer,
@@ -11,4 +12,5 @@ export const reducers = combineReducers({
     brandReducer,
     deviceReducer,
     errorReducer,
+    successReducer
 })

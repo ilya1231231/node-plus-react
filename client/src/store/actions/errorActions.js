@@ -1,9 +1,9 @@
 import {SET_ERROR} from "./actionTypes";
 
-const setError = (data) => {
+const setError = (error) => {
     return {
         type: SET_ERROR,
-        payload: data
+        payload: error ? (error.response.data.message ?? 'Ошибка. Обратитесь в разработчику приложения') : null
     }
 }
 

@@ -10,7 +10,8 @@ import {check} from "./http/userApi";
 import {useDispatch} from "react-redux";
 import {Spinner} from "react-bootstrap";
 import actions from "./store/actions/actions";
-import {Error} from "./components/UI/error/Error";
+import {Error} from "./components/UI/notifications/Error";
+import {Success} from "./components/UI/notifications/Success";
 
 function App() {
     const dispatch = useDispatch()
@@ -28,6 +29,7 @@ function App() {
     return (
         <BrowserRouter>
             <NavBar/>
+            <Success/>
             <Error/>
             <AppRouter/>
         </BrowserRouter>
