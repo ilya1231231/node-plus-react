@@ -29,6 +29,7 @@ class TypeController {
 
     async delete(req, res) {
         const {type} = req.body
+        console.log(type)
         await Type.destroy({
             where: {
                 id: type.id

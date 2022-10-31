@@ -1,5 +1,5 @@
 import {SET_ERROR, SET_SELECTED_TYPE, SET_TYPES} from "./actionTypes";
-import {createType, fetchTypes} from "../../http/deviceApi";
+import {createType, deleteType, fetchTypes} from "../../http/deviceApi";
 import actions from "./actions";
 
 const setTypes = (dispatch, getState) => {
@@ -32,6 +32,23 @@ const saveType = (name) => {
     }
 }
 
+const dropType = (type) => {
+    return async (dispatch, getState) => {
+        try {
+            await deleteType({type})
+            fetchTypes().then((data) => {
+                dispatch({
+                    type: SET_TYPES,
+                    payload: data
+                })
+            })
+            dispatch(actions.successActions.setSuccess(true, 'Успешно удалено'))
+        } catch (e) {
+            dispatch(actions.errorActions.setError(e))
+        }
+    }
+}
+
 const setSelectedType = (type) => {
     return {
         type: SET_SELECTED_TYPE,
@@ -42,5 +59,6 @@ const setSelectedType = (type) => {
 export default {
     setTypes,
     setSelectedType,
-    saveType
+    saveType,
+    dropType
 }

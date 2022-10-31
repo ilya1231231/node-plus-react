@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Col, Form, Row} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import {createDevice, fetchTypes} from "../../../http/deviceApi";
@@ -20,7 +20,8 @@ function DeviceModal({show, onHide}) {
     const [file, setFile] = useState(null)
     const [info, setInfo] = useState([])
     const [fileDataURL, setFileDataURL] = useState(null);
-    const [imageName, setImageName] = useState('')
+    const [imageName, setImageName] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let fileReader, isCancel = false;
@@ -66,7 +67,8 @@ function DeviceModal({show, onHide}) {
         formData.append('typeId', selectedType.id)
         //массив передать невозможно, передаем JSON строку, которая парсится на бэке
         formData.append('info', JSON.stringify(info))
-        createDevice(formData).then(() => onHide())
+        dispatch(actions.deviceActions.create(formData))
+        // createDevice(formData).then(() => onHide())
     }
 
     return (

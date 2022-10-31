@@ -24,9 +24,6 @@
     color: black;
     text-decoration: none;
 }
-.typeBrands {
-    border: 3px solid red
-}
 
 .nav-link a {
     text-decoration: none;
@@ -39,4 +36,12 @@
 
 .preview_image {
     width: 8rem
+}
+
+.typeBrands {
+    border: 3px solid red
+}
+
+.drop:hover {
+    color: red !important;
 }

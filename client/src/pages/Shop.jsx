@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import BrandBar from "../components/UI/BrandBar";
 import DeviceList from "../components/UI/DeviceList";
 import TypeBar from "../components/UI/TypeBar";
-import {fetchBrands, fetchDevices, fetchTypes} from "../http/deviceApi";
+import {fetchBrands, fetchDevices} from "../http/deviceApi";
 import actions from "../store/actions/actions";
 
 const Shop = () => {

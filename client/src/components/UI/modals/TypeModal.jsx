@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Form, OverlayTrigger, Popover, Row} from 'react-bootstrap';
+import {useRef, useState} from 'react';
+import {Form, Overlay, OverlayTrigger, Popover, Row, Tooltip} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
@@ -11,20 +11,14 @@ function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const [message, setMessage] = useState('')
+    const [isHover, setIsHover] = useState(false);
+    const target = useRef(null);
+
     const addType = () => {
-        // todo нужно сделать модалку, которая будет выводить "Сохранено" или продумать другой вариант
         dispatch(actions.typeActions.saveType({name: value}))
     }
     const dropType = (type) => {
-        deleteType({type}).then(() => {
-            dispatch(actions.typeActions.setTypes)
-            setMessage(`Тип "${type.name}" успешно удален`)
-        })
-    }
-
-    //todo переделать под удобный тултип
-    const notifyAboutRelatedDevices = (relatedDevices) => {
-        setMessage(`Этот тип привязан к продукту "${relatedDevices[0].name}"`)
+        dispatch(actions.typeActions.dropType(type))
     }
 
     const editTypes = useSelector(state => state.typeReducer.types)
@@ -34,7 +28,7 @@ function TypeModal({show, onHide}) {
             onHide={onHide}
         >
             <Modal.Header closeButton>
-                <Modal.Title>Добавьте тип продукта</Modal.Title>
+                <Modal.Title className="ms-auto">Добавьте тип продукта</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {message
@@ -43,25 +37,48 @@ function TypeModal({show, onHide}) {
                 }
                 {editTypes.length
                     ? <Row className="m-2">
-                        {editTypes.map((type) =>
-                            <div key={type.id} className="d-flex justify-content-between col-12 border border-dark rounded mt-1">
-                                <div className="overflow-auto">
+                        {editTypes.map((type, typeIndex) =>
+                            <div key={type.id}
+                                 className="d-flex justify-content-between col-12 border border-dark rounded mt-1">
+                                <div
+                                    className="overflow-auto">
                                     {type.name}
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
                                     {type.relatedDevices.length
                                         ?
-                                        <div
-                                            onClick={() => {notifyAboutRelatedDevices(type.relatedDevices)}}
-                                            className='fa fa-exclamation-circle me-2 text-warning'>
-                                        </div>
+                                        <OverlayTrigger
+                                            trigger="click"
+                                            key={type.name}
+                                            placement='left'
+                                            overlay={
+                                                <Popover id={`tooltip-${typeIndex}`}>
+                                                    <Popover.Header as="h3">Внимание</Popover.Header>
+                                                    <Popover.Body>
+                                                        Данный тип имеется у следующих продуктов:
+                                                        <br/>
+                                                        {type.relatedDevices.map((related, index) =>
+                                                            <div key={related.id}>
+                                                                <strong>{index + 1}){related.name}</strong>
+                                                            </div>
+                                                        )}
+                                                    </Popover.Body>
+                                                </Popover>
+                                            }
+                                        >
+                                            <div
+                                                role='button'
+                                                className='fa fa-exclamation-circle me-2 text-warning pointer'>
+                                            </div>
+                                        </OverlayTrigger>
                                         : ''
                                     }
                                     <div
                                         onClick={() => {
                                             dropType(type)
                                         }}
-                                        className='fa fa-trash text-danger'>
+                                        role='button'
+                                        className='fa fa-trash drop'>
                                     </div>
                                 </div>
                             </div>

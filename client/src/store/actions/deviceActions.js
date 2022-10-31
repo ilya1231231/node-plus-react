@@ -1,4 +1,6 @@
-import {SET_DEVICES, SET_SELECT_DEVICE} from "./actionTypes";
+import {SET_DEVICES, SET_SELECT_DEVICE, SET_TYPES} from "./actionTypes";
+import {createDevice, createType, fetchTypes} from "../../http/deviceApi";
+import actions from "./actions";
 
 const setSelectedDevice = (device) => {
     return {
@@ -14,7 +16,20 @@ const setDevices = (data) => {
     }
 }
 
+const create = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            await createDevice(data)
+            dispatch(actions.successActions.setSuccess(true))
+        } catch (e) {
+            dispatch(actions.errorActions.setError(e))
+        }
+    }
+}
+
+
 export default {
     setSelectedDevice,
-    setDevices
+    setDevices,
+    create
 }

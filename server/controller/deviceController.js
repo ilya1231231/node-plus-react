@@ -3,12 +3,18 @@ const uuid = require('uuid')
 const path = require('path')
 const {Device, DeviceInfo, Brand} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {validationResult} = require("express-validator");
+const {getErrorMsg} = require("../utils/arrayHelper");
 
 class DeviceController {
 
     async create(req, res, next) {
         try {
             let {name, price, brandId, typeId, info} = req.body
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return next(ApiError.badRequest(getErrorMsg(errors)))
+            }
             const {img} = req.files
             //генерация названия файла
             let fileName = uuid.v4() + ".jpg"

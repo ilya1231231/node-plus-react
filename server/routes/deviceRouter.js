@@ -1,8 +1,9 @@
 const Router = require('express')
 const router = new Router()
 const deviceController = require('../controller/deviceController')
+const deviceValidationRules = require("../services/validation/deviceValidation");
 
-router.post('/', deviceController.create)
+router.post('/', deviceValidationRules.create(), deviceController.create)
 router.get('/', deviceController.getAll)
 router.get('/:id', deviceController.getOne)
 
