@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {Col, Form, Row} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {createDevice, fetchTypes} from "../../../http/deviceApi";
 import SelectType from "../input/type/SelectType";
 import SelectBrand from "../input/brand/SelectBrand";
@@ -21,11 +21,13 @@ function DeviceModal({show, onHide}) {
     const [info, setInfo] = useState([])
     const [fileDataURL, setFileDataURL] = useState(null);
     const [imageName, setImageName] = useState('');
+    const filePicker = useRef(null)
     const dispatch = useDispatch();
 
     useEffect(() => {
         let fileReader, isCancel = false;
         if (file) {
+            console.log(file)
             fileReader = new FileReader();
             fileReader.onload = (e) => {
                 const {result} = e.target;
@@ -41,7 +43,6 @@ function DeviceModal({show, onHide}) {
                 fileReader.abort();
             }
         }
-
     }, [file]);
     //Добавляем название характеристики и ее описание
     const addInfo = () => {
@@ -68,9 +69,11 @@ function DeviceModal({show, onHide}) {
         //массив передать невозможно, передаем JSON строку, которая парсится на бэке
         formData.append('info', JSON.stringify(info))
         dispatch(actions.deviceActions.create(formData))
-        // createDevice(formData).then(() => onHide())
     }
 
+    const handleFilePick = () => {
+        filePicker.current.click()
+    }
     return (
         <Modal
             show={show}
@@ -83,10 +86,10 @@ function DeviceModal({show, onHide}) {
             </Modal.Header>
             <Modal.Body>
                 <Row>
-                    <Col md={6}>
+                    <Col className='mt-2'>
                         <SelectType types={types}/>
                     </Col>
-                    <Col md={6}>
+                    <Col className='mt-2'>
                         <SelectBrand brands={brands}/>
                     </Col>
                 </Row>
@@ -107,13 +110,22 @@ function DeviceModal({show, onHide}) {
                     type="number"
                     placeholder='Введите стоимость устройства'
                 />
-                {fileDataURL && file ?
-                    <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
-                    : null}
+                <div className='d-flex mt-2 drop-area'>
+                        <Button className='mt-2' onClick={handleFilePick}>
+                            Выбрать файл
+                        </Button>
+                        <div className='d-flex mb-2 container-fluid'>
+                            {fileDataURL && file ?
+                                <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
+                                : null}
+                        </div>
+                </div>
                 <Form.Control
-                    className='mt-3'
+                    className='mt-3 d-none'
                     type='file'
+                    ref={filePicker}
                     value={imageName}
+                    accept='image/*,.png,.jpg,.gif,.web,.webp'
                     onChange={e => {
                         selectFile(e)
                         setImageName(e.target.value)
@@ -132,7 +144,7 @@ function DeviceModal({show, onHide}) {
                 <Button variant="secondary" onClick={onHide}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={addDevice}>
+                <Button variant="success" onClick={addDevice}>
                     Save Changes
                 </Button>
             </Modal.Footer>

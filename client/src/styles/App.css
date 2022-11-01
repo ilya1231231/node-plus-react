@@ -35,7 +35,8 @@
 }
 
 .preview_image {
-    width: 8rem
+    width: 100px;
+    height: auto;
 }
 
 .typeBrands {
@@ -44,4 +45,13 @@
 
 .drop:hover {
     color: red !important;
+}
+
+.drop-area {
+    width: auto;
+    height: 35vh;
+    border: 5px dashed gray;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

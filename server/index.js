@@ -1,5 +1,6 @@
 require('dotenv').config()
 // const models = require('./models/models')
+const expressValidator = require('express-validator');
 const sequelize = require('./db')
 const express = require('express')
 const cors = require('cors')
