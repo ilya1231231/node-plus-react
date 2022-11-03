@@ -12,10 +12,10 @@ const SelectBrand = ({brands}) => {
 
     return(
         <Dropdown>
-            <Dropdown.Toggle>
+            <Dropdown.Toggle className="w-100">
                 {selectedBrand.name || 'Выберите бренд'}
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu className="w-100">
                 {brands.map((brand) =>
                     <Dropdown.Item
                         onClick={() => {

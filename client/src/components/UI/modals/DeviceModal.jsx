@@ -23,11 +23,11 @@ function DeviceModal({show, onHide}) {
     const [imageName, setImageName] = useState('');
     const filePicker = useRef(null)
     const dispatch = useDispatch();
+    const [drag, setDrag] = useState(false);
 
     useEffect(() => {
         let fileReader, isCancel = false;
         if (file) {
-            console.log(file)
             fileReader = new FileReader();
             fileReader.onload = (e) => {
                 const {result} = e.target;
@@ -74,6 +74,22 @@ function DeviceModal({show, onHide}) {
     const handleFilePick = () => {
         filePicker.current.click()
     }
+
+    const dragStartHandler = (e) => {
+        e.preventDefault()
+        setDrag(true)
+    }
+
+    const dragLeaveHandler = (e) => {
+        e.preventDefault()
+        setDrag(false)
+    }
+
+    const onDropHandler = (e) => {
+        e.preventDefault()
+        setFile(e.dataTransfer.files[0])
+        setDrag(false)
+    }
     return (
         <Modal
             show={show}
@@ -110,32 +126,51 @@ function DeviceModal({show, onHide}) {
                     type="number"
                     placeholder='Введите стоимость устройства'
                 />
-                <div className='d-flex mt-2 drop-area'>
-                        <Button className='mt-2' onClick={handleFilePick}>
+                <Row>
+                    <Col>
+                        <Button className='mt-2 w-100' onClick={handleFilePick}>
                             Выбрать файл
                         </Button>
-                        <div className='d-flex mb-2 container-fluid'>
-                            {fileDataURL && file ?
-                                <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
-                                : null}
-                        </div>
-                </div>
-                <Form.Control
-                    className='mt-3 d-none'
-                    type='file'
-                    ref={filePicker}
-                    value={imageName}
-                    accept='image/*,.png,.jpg,.gif,.web,.webp'
-                    onChange={e => {
-                        selectFile(e)
-                        setImageName(e.target.value)
-                    }}
-                    placeholder='Добавьте фото'
-                />
-                <Button
-                    className='mt-3'
-                    onClick={addInfo}
-                >
+                        {fileDataURL && file ?
+                            <DevicePreview file={file} fileDataURL={fileDataURL} removeImage={removeImage}/>
+                            : null}
+                        <Form.Control
+                            className='mt-3 d-none'
+                            type='file'
+                            ref={filePicker}
+                            value={imageName}
+                            accept='image/*,.png,.jpg,.gif,.web,.webp'
+                            onChange={e => {
+                                selectFile(e)
+                                setImageName(e.target.value)
+                            }}
+                        />
+                    </Col>
+                    <Col>
+                        {drag
+                            ?
+                            <div
+                                className='drop-area mt-2'
+                                onDragStart={e => dragStartHandler(e)}
+                                onDragLeave={e => dragLeaveHandler(e)}
+                                onDragOver={e => dragStartHandler(e)}
+                                onDrop={e => onDropHandler(e)}
+                            >
+                                Загрузить изображение
+                            </div>
+                            :
+                            <div
+                                className='drop-area mt-2'
+                                onDragStart={e => dragStartHandler(e)}
+                                onDragLeave={e => dragLeaveHandler(e)}
+                                onDragOver={e => dragStartHandler(e)}
+                            >
+                                Или перетащите его сюда
+                            </div>
+                        }
+                    </Col>
+                </Row>
+                <Button className='mt-2 w-100' onClick={addInfo}>
                     Добавить новое свойство
                 </Button>
                 <InfoInput info={info} setInfo={setInfo}/>

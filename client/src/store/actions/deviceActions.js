@@ -20,6 +20,7 @@ const create = (data) => {
     return async (dispatch, getState) => {
         try {
             await createDevice(data)
+            dispatch(actions.typeActions.setTypes)
             dispatch(actions.successActions.setSuccess(true))
         } catch (e) {
             dispatch(actions.errorActions.setError(e))

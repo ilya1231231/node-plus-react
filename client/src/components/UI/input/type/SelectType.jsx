@@ -11,11 +11,11 @@ const SelectType = ({types}) => {
     }
 
     return(
-        <Dropdown>
-            <Dropdown.Toggle>
+        <Dropdown >
+            <Dropdown.Toggle className="w-100">
                 {selectedType.name || 'Выберите тип'}
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu className="w-100">
                 {types.map((type) =>
                     <Dropdown.Item
                         onClick={() => {

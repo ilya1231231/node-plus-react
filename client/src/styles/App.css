@@ -50,8 +50,10 @@
 .drop-area {
     width: auto;
     height: 35vh;
-    border: 5px dashed gray;
+    border: 3px dashed gray;
+    border-radius: 5px;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
