@@ -5,20 +5,20 @@ import BrandModal from "../components/UI/modals/BrandModal";
 import DeviceModal from "../components/UI/modals/DeviceModal";
 import {useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
-import {fetchBrands, fetchTypes} from "../http/deviceApi";
 import actions from "../store/actions/actions";
+
 const Admin = () => {
     const dispatch = useDispatch()
 	useEffect(() => {
         dispatch(actions.typeActions.setTypes)
-        fetchBrands().then(data => dispatch(actions.brandActions.setBrands(data)))
+        dispatch(actions.brandActions.setBrands)
     }, [dispatch])
 
     const [showTypeModalVisible, setShowTypeModalVisible] = useState(false);
     const [showBrandModalVisible, setShowBrandModalVisible] = useState(false);
     const [showDeviceModalVisible, setShowDeviceModalVisible] = useState(false);
     return(
-        <Container className="d-flex flex-column">
+        <Container className='d-flex flex-column'>
             <Button 
                 variant={"outline-dark"} 
                 className="mt-2" 

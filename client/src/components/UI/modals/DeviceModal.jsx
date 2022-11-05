@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {Col, Form, Row} from 'react-bootstrap';
 import {useState, useEffect, useRef} from 'react';
-import {createDevice, fetchTypes} from "../../../http/deviceApi";
 import SelectType from "../input/type/SelectType";
 import SelectBrand from "../input/brand/SelectBrand";
 import DevicePreview from "../input/device/DevicePreview";
@@ -90,6 +89,12 @@ function DeviceModal({show, onHide}) {
         setFile(e.dataTransfer.files[0])
         setDrag(false)
     }
+
+    const onPasteHandler = (e) => {
+        const image = e.clipboardData.files[0]
+        setFile(image)
+    }
+
     return (
         <Modal
             show={show}
@@ -116,6 +121,7 @@ function DeviceModal({show, onHide}) {
                     }}
                     className='mt-3'
                     placeholder='Введите название устройства'
+                    onPaste={(e) => onPasteHandler(e)}
                 />
                 <Form.Control
                     value={price}

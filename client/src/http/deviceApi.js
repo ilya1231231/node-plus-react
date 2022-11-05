@@ -6,12 +6,8 @@ export const createType = async (type) => {
 }
 
 export const deleteType = async (type) => {
-    try {
-        const {data} = await $authHost.post('api/type/delete', type)
-        return data
-    } catch (error) {
-        throw error
-    }
+    const {data} = await $authHost.post('api/type/delete', type)
+    return data
 }
 
 export const fetchTypes = async () => {
@@ -20,21 +16,13 @@ export const fetchTypes = async () => {
 }
 
 export const createBrand = async (brand) => {
-    try {
-        const {data} = await $authHost.post('api/brand', brand)
-        return data
-    } catch (error) {
-        throw error
-    }
+    const {data} = await $authHost.post('api/brand', brand)
+    return data
 }
 
 export const deleteBrand = async (brand) => {
-    try {
-        const {data} = await $authHost.post('api/brand/delete', brand)
-        return data
-    } catch (error) {
-        throw error
-    }
+    const {data} = await $authHost.post('api/brand/delete', brand)
+    return data
 }
 
 export const fetchBrands = async () => {

@@ -1,5 +1,5 @@
-import {SET_DEVICES, SET_SELECT_DEVICE, SET_TYPES} from "./actionTypes";
-import {createDevice, createType, fetchTypes} from "../../http/deviceApi";
+import {SET_BRANDS, SET_DEVICES, SET_SELECT_DEVICE, SET_TYPES} from "./actionTypes";
+import {createDevice, fetchDevices} from "../../http/deviceApi";
 import actions from "./actions";
 
 const setSelectedDevice = (device) => {
@@ -9,10 +9,16 @@ const setSelectedDevice = (device) => {
     }
 }
 
-const setDevices = (data) => {
-    return {
-        type: SET_DEVICES,
-        payload: data
+const setDevices = (dispatch, getState) => {
+    try {
+        fetchDevices().then((data) => {
+            dispatch({
+                type: SET_DEVICES,
+                payload: data
+            })
+        })
+    } catch (e) {
+        dispatch(actions.errorActions.setError(e))
     }
 }
 
