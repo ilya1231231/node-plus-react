@@ -4,6 +4,7 @@ import {Form, Row} from 'react-bootstrap';
 import {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import actions from "../../../store/actions/actions";
+import RelatedNotifyPopover from "../notifications/RelatedNotifyPopover";
 
 function BrandModal({show, onHide}) {
     const [value, setValue] = useState('')
@@ -12,8 +13,9 @@ function BrandModal({show, onHide}) {
         dispatch(actions.brandActions.addBrand({name: value}))
         setValue('')
     }
-
     const editBrands = useSelector(state => state.brandReducer.brands)
+    console.log(editBrands)
+
     return (
         <Modal
             show={show}
@@ -24,16 +26,26 @@ function BrandModal({show, onHide}) {
             </Modal.Header>
             <Modal.Body>
                 <Row className="m-2">
-                    {editBrands.map((brand) =>
+                    {editBrands.map((brand,brandIndex ) =>
                         <div key={brand.id} className="d-flex justify-content-between col-12 mt-1">
                             <div className="overflow-auto">
                                 {brand.name}
                             </div>
-                            <div
-                                onClick={() => {
-                                    dispatch(actions.brandActions.dropBrand(brand))
-                                }}
-                                className='fa fa-trash text-danger'>
+                            <div className='d-flex justify-content-center align-items-center'>
+                                {brand.relatedDevices.length
+                                    ?
+                                    <RelatedNotifyPopover
+                                        key={brand.name}
+                                        tooltipId={brandIndex}
+                                        related={brand.relatedDevices}/>
+                                    : ''
+                                }
+                                <div
+                                    onClick={() => {
+                                        dispatch(actions.brandActions.dropBrand(brand))
+                                    }}
+                                    className='fa fa-trash text-danger'>
+                                </div>
                             </div>
                         </div>
                     )}

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {createType, deleteType, fetchTypes} from '../../../http/deviceApi';
 import actions from "../../../store/actions/actions";
 import {errorHandler} from "../../../helpers/apiErrorHelper";
+import RelatedNotifyPopover from "../notifications/RelatedNotifyPopover";
 
 function TypeModal({show, onHide}) {
     const dispatch = useDispatch()
@@ -47,30 +48,10 @@ function TypeModal({show, onHide}) {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     {type.relatedDevices.length
                                         ?
-                                        <OverlayTrigger
-                                            trigger="click"
+                                        <RelatedNotifyPopover
                                             key={type.name}
-                                            placement='left'
-                                            overlay={
-                                                <Popover id={`tooltip-${typeIndex}`}>
-                                                    <Popover.Header as="h3">Внимание</Popover.Header>
-                                                    <Popover.Body>
-                                                        Данный тип имеется у следующих продуктов:
-                                                        <br/>
-                                                        {type.relatedDevices.map((related, index) =>
-                                                            <div key={related.id}>
-                                                                <strong>{index + 1}){related.name}</strong>
-                                                            </div>
-                                                        )}
-                                                    </Popover.Body>
-                                                </Popover>
-                                            }
-                                        >
-                                            <div
-                                                role='button'
-                                                className='fa fa-exclamation-circle me-2 text-warning pointer'>
-                                            </div>
-                                        </OverlayTrigger>
+                                            tooltipId={typeIndex}
+                                            related={type.relatedDevices}/>
                                         : ''
                                     }
                                     <div

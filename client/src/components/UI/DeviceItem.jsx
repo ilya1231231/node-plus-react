@@ -27,7 +27,7 @@ const DeviceItem = ({device}) => {
                         </div>
                     </div>
                     <div>
-                        {device.name}
+                        <small>{device.name}</small>
                     </div>
                 </div>
             </Card>
