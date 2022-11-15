@@ -1,4 +1,4 @@
-const {Brand, Type, Device} = require('../models/models')
+const {Brand, Device} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {validationResult} = require("express-validator");
 const {getErrorMsg} = require("../utils/arrayHelper");
@@ -22,7 +22,6 @@ class BrandController {
         const brands = await Brand.findAll({
             include: [{model: Device, as: 'relatedDevices'}]
         })
-        console.log(brands)
         return res.json(brands)
     }
 

@@ -1,11 +1,9 @@
 import {useRef, useState} from 'react';
-import {Form, Overlay, OverlayTrigger, Popover, Row, Tooltip} from 'react-bootstrap';
+import {Form, Row} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useDispatch, useSelector} from 'react-redux';
-import {createType, deleteType, fetchTypes} from '../../../http/deviceApi';
 import actions from "../../../store/actions/actions";
-import {errorHandler} from "../../../helpers/apiErrorHelper";
 import RelatedNotifyPopover from "../notifications/RelatedNotifyPopover";
 
 function TypeModal({show, onHide}) {

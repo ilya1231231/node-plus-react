@@ -7,7 +7,7 @@ import {DEVICE_ROUTE} from "../../utils/consts";
 const DeviceItem = ({device}) => {
     const navigate = useNavigate()
     return (
-        <Col className="m-1 d-flex align-items-center justify-content-center" md={3} xs={12} onClick={() => {
+        <Col className="d-flex mt-2 align-items-center justify-content-center" md={3} xs={6} onClick={() => {
             navigate(DEVICE_ROUTE + '/' + device.id)
         }}>
             <Card

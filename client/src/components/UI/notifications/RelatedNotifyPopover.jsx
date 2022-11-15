@@ -1,7 +1,6 @@
 import {OverlayTrigger, Popover} from "react-bootstrap";
 
 const RelatedNotifyPopover = ({tooltipId, related}) => {
-    console.log(related)
     return (
         <OverlayTrigger
             trigger={['hover', 'focus']}

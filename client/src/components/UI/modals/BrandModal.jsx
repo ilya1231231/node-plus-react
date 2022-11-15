@@ -14,7 +14,6 @@ function BrandModal({show, onHide}) {
         setValue('')
     }
     const editBrands = useSelector(state => state.brandReducer.brands)
-    console.log(editBrands)
 
     return (
         <Modal

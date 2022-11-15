@@ -3,10 +3,11 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from "../../store/actions/actions";
 
+
 const TypeBar = () => {
-    const dispatch = useDispatch()
-    const types = useSelector(state => state.typeReducer.types)
-    const selectedType = useSelector(state => state.typeReducer.selectedType)
+    const dispatch = useDispatch();
+    const types = useSelector(state => state.typeReducer.types);
+    const selectedType = useSelector(state => state.typeReducer.selectedType);
     const selectType = (type) => {
         dispatch(actions.typeActions.setSelectedType(type))
     }

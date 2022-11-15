@@ -1,4 +1,4 @@
-const {Type, DeviceInfo, Device} = require('../models/models')
+const {Type, Device} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {validationResult} = require('express-validator');
 const {getErrorMsg} = require("../utils/arrayHelper");
@@ -29,7 +29,6 @@ class TypeController {
 
     async delete(req, res) {
         const {type} = req.body
-        console.log(type)
         await Type.destroy({
             where: {
                 id: type.id
