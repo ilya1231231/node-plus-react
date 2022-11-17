@@ -9,7 +9,9 @@ const TypeBar = () => {
     const types = useSelector(state => state.typeReducer.types);
     const selectedType = useSelector(state => state.typeReducer.selectedType);
     const selectType = (type) => {
-        dispatch(actions.typeActions.setSelectedType(type))
+        type.id === selectedType.id
+            ? dispatch(actions.typeActions.setSelectedType({}))
+            : dispatch(actions.typeActions.setSelectedType(type))
     }
     return (
         <ListGroup>
@@ -19,7 +21,13 @@ const TypeBar = () => {
                     variant={type.id === selectedType.id ? 'secondary' : 'light'}
                     key={type.id}
                     onClick={() => selectType(type)}>
-                    {type.name}
+                    <div className='d-flex align-items-center justify-content-between'>
+                        {type.name}
+                        {type.id === selectedType.id
+                            ?
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                            : ''}
+                    </div>
                 </ListGroup.Item>
             ))}
         </ListGroup>

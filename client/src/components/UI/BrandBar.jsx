@@ -8,10 +8,9 @@ const BrandBar = () => {
     const brands = useSelector(state => state.brandReducer.brands)
     const selectedBrand = useSelector(state => state.brandReducer.selectedBrand)
     const selectBrand = (brand) => {
-        dispatch(actions.brandActions.setSelectedBrand(brand))
-    }
-    const resetSelectBrand = () => {
-        dispatch(actions.brandActions.setSelectedBrand(null))
+        brand.id === selectedBrand.id
+            ? dispatch(actions.brandActions.setSelectedBrand({}))
+            : dispatch(actions.brandActions.setSelectedBrand(brand))
     }
     return (
         <div className="d-flex flex-wrap align-items-center justify-content-around">
