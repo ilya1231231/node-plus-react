@@ -1,10 +1,15 @@
 import {SET_ERROR} from "../actions/actionTypes";
+import {SetErrorType} from "../actions/errorActions";
 
-const defaultState = {
+export type ErrorType = {
+    error: null
+}
+
+const defaultState: ErrorType = {
     error : null,
 }
 
-export const errorReducer = (state = defaultState, action) => {
+export const errorReducer = (state = defaultState, action: SetErrorType) => {
     switch (action.type) {
         case SET_ERROR:
             return {...state, error : action.payload}
